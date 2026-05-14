@@ -15,9 +15,10 @@ import { CourseCard } from "@/components/cards/CourseCard";
 import { TutorCard } from "@/components/cards/TutorCard";
 import { SectionHeading } from "@/components/SectionHeading";
 import {
-  COURSES, TUTORS, CATEGORIES, SKILLS, COMBOS, TESTIMONIALS, FAQS,
+  COURSES as COURSES_SEED, TUTORS as TUTORS_SEED, CATEGORIES, SKILLS, COMBOS as COMBOS_SEED, TESTIMONIALS, FAQS,
   COMPANIES, STATS, HOW_IT_WORKS, LEARNING_TIMELINE, COMPARISON,
 } from "@/data/mock";
+import { useAdminStore } from "@/hooks/use-admin-store";
 import hero from "@/assets/hero-illustration.jpg";
 import careerBanner from "@/assets/career-banner.jpg";
 import { courseImage, tutorImage } from "@/data/images";
