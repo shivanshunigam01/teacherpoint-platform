@@ -20,6 +20,7 @@ import {
 } from "@/data/mock";
 import hero from "@/assets/hero-illustration.jpg";
 import careerBanner from "@/assets/career-banner.jpg";
+import { courseImage, tutorImage } from "@/data/images";
 
 const ICONS: Record<string, any> = {
   Sparkles, Code, Brain, BarChart3, Palette, Briefcase: Bcase, Megaphone, Languages, GraduationCap,
@@ -239,13 +240,17 @@ export function IndustryExperts() {
         <div className="grid md:grid-cols-3 gap-5">
           {COURSES.slice(2, 5).map((c) => (
             <article key={c.id} className="bg-card border rounded-2xl overflow-hidden hover:shadow-card transition">
-              <div className="aspect-[16/10]" style={{ background: c.gradient }} />
+              <div className="aspect-[16/10] relative overflow-hidden" style={{ background: c.gradient }}>
+                <img src={courseImage(c.id)} alt={c.title} loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
+              </div>
               <div className="p-5">
                 <Badge variant="secondary" className="mb-3">{c.category}</Badge>
                 <h3 className="font-display font-bold text-lg leading-snug">{c.title}</h3>
                 <p className="text-sm text-muted-foreground mt-2">{c.description}</p>
                 <div className="mt-4 flex items-center gap-3 pt-4 border-t">
-                  <div className="h-9 w-9 rounded-full bg-gradient-primary text-white grid place-items-center font-bold text-sm">{c.instructor[0]}</div>
+                  <div className="h-9 w-9 rounded-full overflow-hidden bg-gradient-primary">
+                    <img src={tutorImage("t" + ((parseInt(c.id.slice(1)) % 12) + 1))} alt={c.instructor} className="h-full w-full object-cover" loading="lazy" />
+                  </div>
                   <div>
                     <div className="text-sm font-semibold">{c.instructor}</div>
                     <div className="text-xs text-muted-foreground">Senior Engineer · 8+ yrs</div>
@@ -354,7 +359,7 @@ export function Certification() {
         </div>
         <div className="relative">
           <div className="bg-card border rounded-3xl p-8 shadow-card">
-            <div className="border-2 border-dashed rounded-2xl p-8 text-center">
+            <div className="border-2 border-dashed border-border rounded-2xl p-8 text-center">
               <Award className="h-16 w-16 mx-auto text-amber-500" />
               <div className="text-xs uppercase tracking-widest text-muted-foreground mt-4">Certificate of Completion</div>
               <h3 className="font-display font-bold text-2xl mt-2">Aarav Patel</h3>
@@ -384,7 +389,7 @@ export function Comparison() {
             <div className="text-center text-muted-foreground">Others</div>
           </div>
           {COMPARISON.map((row, i) => (
-            <div key={row.feature} className={`grid grid-cols-3 px-6 py-3 text-sm items-center ${i % 2 === 0 ? "bg-background" : "bg-muted/20"}`}>
+            <div key={row.feature} className={`grid grid-cols-3 px-6 py-3 text-sm items-center ${i % 2 === 0 ? "bg-card" : "bg-muted/30"}`}>
               <div>{row.feature}</div>
               <div className="text-center">
                 {row.us ? <CheckCircle2 className="h-5 w-5 text-emerald-600 mx-auto" /> : <X className="h-5 w-5 text-muted-foreground mx-auto" />}
