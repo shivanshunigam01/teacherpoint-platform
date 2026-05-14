@@ -15,7 +15,7 @@ import { CourseCard } from "@/components/cards/CourseCard";
 import { TutorCard } from "@/components/cards/TutorCard";
 import { SectionHeading } from "@/components/SectionHeading";
 import {
-  COURSES as COURSES_SEED, TUTORS as TUTORS_SEED, CATEGORIES, SKILLS, COMBOS as COMBOS_SEED, TESTIMONIALS, FAQS,
+  CATEGORIES, SKILLS, TESTIMONIALS, FAQS,
   COMPANIES, STATS, HOW_IT_WORKS, LEARNING_TIMELINE, COMPARISON,
 } from "@/data/mock";
 import { useAdminStore } from "@/hooks/use-admin-store";
