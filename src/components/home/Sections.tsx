@@ -415,7 +415,9 @@ export function Testimonials() {
             <Quote className="h-7 w-7 text-primary/30" />
             <p className="text-sm mt-3 leading-relaxed">"{t.text}"</p>
             <div className="mt-4 flex items-center gap-3 pt-4 border-t">
-              <div className="h-10 w-10 rounded-full bg-gradient-primary text-white grid place-items-center text-sm font-bold">{t.initials}</div>
+              <div className="h-10 w-10 rounded-full overflow-hidden bg-gradient-primary">
+                <img src={tutorImage("t" + ((parseInt(t.id.slice(1)) % 12) + 1))} alt={t.name} loading="lazy" className="h-full w-full object-cover" />
+              </div>
               <div className="flex-1">
                 <div className="text-sm font-semibold">{t.name}</div>
                 <div className="text-xs text-muted-foreground">{t.role}</div>
