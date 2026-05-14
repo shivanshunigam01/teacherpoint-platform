@@ -9,38 +9,466 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TutorsRouteImport } from './routes/tutors'
+import { Route as TeacherRouteImport } from './routes/teacher'
+import { Route as SupportRouteImport } from './routes/support'
+import { Route as StudentRouteImport } from './routes/student'
+import { Route as RoleSelectRouteImport } from './routes/role-select'
+import { Route as ReviewsRouteImport } from './routes/reviews'
+import { Route as RegisterRouteImport } from './routes/register'
+import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as PostRequirementRouteImport } from './routes/post-requirement'
+import { Route as PaymentsRouteImport } from './routes/payments'
+import { Route as ParentRouteImport } from './routes/parent'
+import { Route as MessagesRouteImport } from './routes/messages'
+import { Route as MarketplaceRouteImport } from './routes/marketplace'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as LmsRouteImport } from './routes/lms'
+import { Route as FaqRouteImport } from './routes/faq'
+import { Route as CoursesRouteImport } from './routes/courses'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TutorsIdRouteImport } from './routes/tutors.$id'
+import { Route as CoursesIdRouteImport } from './routes/courses.$id'
 
+const TutorsRoute = TutorsRouteImport.update({
+  id: '/tutors',
+  path: '/tutors',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeacherRoute = TeacherRouteImport.update({
+  id: '/teacher',
+  path: '/teacher',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SupportRoute = SupportRouteImport.update({
+  id: '/support',
+  path: '/support',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentRoute = StudentRouteImport.update({
+  id: '/student',
+  path: '/student',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RoleSelectRoute = RoleSelectRouteImport.update({
+  id: '/role-select',
+  path: '/role-select',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReviewsRoute = ReviewsRouteImport.update({
+  id: '/reviews',
+  path: '/reviews',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PricingRoute = PricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PostRequirementRoute = PostRequirementRouteImport.update({
+  id: '/post-requirement',
+  path: '/post-requirement',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PaymentsRoute = PaymentsRouteImport.update({
+  id: '/payments',
+  path: '/payments',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParentRoute = ParentRouteImport.update({
+  id: '/parent',
+  path: '/parent',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MessagesRoute = MessagesRouteImport.update({
+  id: '/messages',
+  path: '/messages',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MarketplaceRoute = MarketplaceRouteImport.update({
+  id: '/marketplace',
+  path: '/marketplace',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LmsRoute = LmsRouteImport.update({
+  id: '/lms',
+  path: '/lms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CoursesRoute = CoursesRouteImport.update({
+  id: '/courses',
+  path: '/courses',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TutorsIdRoute = TutorsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => TutorsRoute,
+} as any)
+const CoursesIdRoute = CoursesIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => CoursesRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/admin': typeof AdminRoute
+  '/contact': typeof ContactRoute
+  '/courses': typeof CoursesRouteWithChildren
+  '/faq': typeof FaqRoute
+  '/lms': typeof LmsRoute
+  '/login': typeof LoginRoute
+  '/marketplace': typeof MarketplaceRoute
+  '/messages': typeof MessagesRoute
+  '/parent': typeof ParentRoute
+  '/payments': typeof PaymentsRoute
+  '/post-requirement': typeof PostRequirementRoute
+  '/pricing': typeof PricingRoute
+  '/register': typeof RegisterRoute
+  '/reviews': typeof ReviewsRoute
+  '/role-select': typeof RoleSelectRoute
+  '/student': typeof StudentRoute
+  '/support': typeof SupportRoute
+  '/teacher': typeof TeacherRoute
+  '/tutors': typeof TutorsRouteWithChildren
+  '/courses/$id': typeof CoursesIdRoute
+  '/tutors/$id': typeof TutorsIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/admin': typeof AdminRoute
+  '/contact': typeof ContactRoute
+  '/courses': typeof CoursesRouteWithChildren
+  '/faq': typeof FaqRoute
+  '/lms': typeof LmsRoute
+  '/login': typeof LoginRoute
+  '/marketplace': typeof MarketplaceRoute
+  '/messages': typeof MessagesRoute
+  '/parent': typeof ParentRoute
+  '/payments': typeof PaymentsRoute
+  '/post-requirement': typeof PostRequirementRoute
+  '/pricing': typeof PricingRoute
+  '/register': typeof RegisterRoute
+  '/reviews': typeof ReviewsRoute
+  '/role-select': typeof RoleSelectRoute
+  '/student': typeof StudentRoute
+  '/support': typeof SupportRoute
+  '/teacher': typeof TeacherRoute
+  '/tutors': typeof TutorsRouteWithChildren
+  '/courses/$id': typeof CoursesIdRoute
+  '/tutors/$id': typeof TutorsIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/admin': typeof AdminRoute
+  '/contact': typeof ContactRoute
+  '/courses': typeof CoursesRouteWithChildren
+  '/faq': typeof FaqRoute
+  '/lms': typeof LmsRoute
+  '/login': typeof LoginRoute
+  '/marketplace': typeof MarketplaceRoute
+  '/messages': typeof MessagesRoute
+  '/parent': typeof ParentRoute
+  '/payments': typeof PaymentsRoute
+  '/post-requirement': typeof PostRequirementRoute
+  '/pricing': typeof PricingRoute
+  '/register': typeof RegisterRoute
+  '/reviews': typeof ReviewsRoute
+  '/role-select': typeof RoleSelectRoute
+  '/student': typeof StudentRoute
+  '/support': typeof SupportRoute
+  '/teacher': typeof TeacherRoute
+  '/tutors': typeof TutorsRouteWithChildren
+  '/courses/$id': typeof CoursesIdRoute
+  '/tutors/$id': typeof TutorsIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/admin'
+    | '/contact'
+    | '/courses'
+    | '/faq'
+    | '/lms'
+    | '/login'
+    | '/marketplace'
+    | '/messages'
+    | '/parent'
+    | '/payments'
+    | '/post-requirement'
+    | '/pricing'
+    | '/register'
+    | '/reviews'
+    | '/role-select'
+    | '/student'
+    | '/support'
+    | '/teacher'
+    | '/tutors'
+    | '/courses/$id'
+    | '/tutors/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/admin'
+    | '/contact'
+    | '/courses'
+    | '/faq'
+    | '/lms'
+    | '/login'
+    | '/marketplace'
+    | '/messages'
+    | '/parent'
+    | '/payments'
+    | '/post-requirement'
+    | '/pricing'
+    | '/register'
+    | '/reviews'
+    | '/role-select'
+    | '/student'
+    | '/support'
+    | '/teacher'
+    | '/tutors'
+    | '/courses/$id'
+    | '/tutors/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/admin'
+    | '/contact'
+    | '/courses'
+    | '/faq'
+    | '/lms'
+    | '/login'
+    | '/marketplace'
+    | '/messages'
+    | '/parent'
+    | '/payments'
+    | '/post-requirement'
+    | '/pricing'
+    | '/register'
+    | '/reviews'
+    | '/role-select'
+    | '/student'
+    | '/support'
+    | '/teacher'
+    | '/tutors'
+    | '/courses/$id'
+    | '/tutors/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  AdminRoute: typeof AdminRoute
+  ContactRoute: typeof ContactRoute
+  CoursesRoute: typeof CoursesRouteWithChildren
+  FaqRoute: typeof FaqRoute
+  LmsRoute: typeof LmsRoute
+  LoginRoute: typeof LoginRoute
+  MarketplaceRoute: typeof MarketplaceRoute
+  MessagesRoute: typeof MessagesRoute
+  ParentRoute: typeof ParentRoute
+  PaymentsRoute: typeof PaymentsRoute
+  PostRequirementRoute: typeof PostRequirementRoute
+  PricingRoute: typeof PricingRoute
+  RegisterRoute: typeof RegisterRoute
+  ReviewsRoute: typeof ReviewsRoute
+  RoleSelectRoute: typeof RoleSelectRoute
+  StudentRoute: typeof StudentRoute
+  SupportRoute: typeof SupportRoute
+  TeacherRoute: typeof TeacherRoute
+  TutorsRoute: typeof TutorsRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/tutors': {
+      id: '/tutors'
+      path: '/tutors'
+      fullPath: '/tutors'
+      preLoaderRoute: typeof TutorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teacher': {
+      id: '/teacher'
+      path: '/teacher'
+      fullPath: '/teacher'
+      preLoaderRoute: typeof TeacherRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/support': {
+      id: '/support'
+      path: '/support'
+      fullPath: '/support'
+      preLoaderRoute: typeof SupportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/student': {
+      id: '/student'
+      path: '/student'
+      fullPath: '/student'
+      preLoaderRoute: typeof StudentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/role-select': {
+      id: '/role-select'
+      path: '/role-select'
+      fullPath: '/role-select'
+      preLoaderRoute: typeof RoleSelectRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reviews': {
+      id: '/reviews'
+      path: '/reviews'
+      fullPath: '/reviews'
+      preLoaderRoute: typeof ReviewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pricing': {
+      id: '/pricing'
+      path: '/pricing'
+      fullPath: '/pricing'
+      preLoaderRoute: typeof PricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/post-requirement': {
+      id: '/post-requirement'
+      path: '/post-requirement'
+      fullPath: '/post-requirement'
+      preLoaderRoute: typeof PostRequirementRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/payments': {
+      id: '/payments'
+      path: '/payments'
+      fullPath: '/payments'
+      preLoaderRoute: typeof PaymentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parent': {
+      id: '/parent'
+      path: '/parent'
+      fullPath: '/parent'
+      preLoaderRoute: typeof ParentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/messages': {
+      id: '/messages'
+      path: '/messages'
+      fullPath: '/messages'
+      preLoaderRoute: typeof MessagesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/marketplace': {
+      id: '/marketplace'
+      path: '/marketplace'
+      fullPath: '/marketplace'
+      preLoaderRoute: typeof MarketplaceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lms': {
+      id: '/lms'
+      path: '/lms'
+      fullPath: '/lms'
+      preLoaderRoute: typeof LmsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/courses': {
+      id: '/courses'
+      path: '/courses'
+      fullPath: '/courses'
+      preLoaderRoute: typeof CoursesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +476,68 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tutors/$id': {
+      id: '/tutors/$id'
+      path: '/$id'
+      fullPath: '/tutors/$id'
+      preLoaderRoute: typeof TutorsIdRouteImport
+      parentRoute: typeof TutorsRoute
+    }
+    '/courses/$id': {
+      id: '/courses/$id'
+      path: '/$id'
+      fullPath: '/courses/$id'
+      preLoaderRoute: typeof CoursesIdRouteImport
+      parentRoute: typeof CoursesRoute
+    }
   }
 }
 
+interface CoursesRouteChildren {
+  CoursesIdRoute: typeof CoursesIdRoute
+}
+
+const CoursesRouteChildren: CoursesRouteChildren = {
+  CoursesIdRoute: CoursesIdRoute,
+}
+
+const CoursesRouteWithChildren =
+  CoursesRoute._addFileChildren(CoursesRouteChildren)
+
+interface TutorsRouteChildren {
+  TutorsIdRoute: typeof TutorsIdRoute
+}
+
+const TutorsRouteChildren: TutorsRouteChildren = {
+  TutorsIdRoute: TutorsIdRoute,
+}
+
+const TutorsRouteWithChildren =
+  TutorsRoute._addFileChildren(TutorsRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  AdminRoute: AdminRoute,
+  ContactRoute: ContactRoute,
+  CoursesRoute: CoursesRouteWithChildren,
+  FaqRoute: FaqRoute,
+  LmsRoute: LmsRoute,
+  LoginRoute: LoginRoute,
+  MarketplaceRoute: MarketplaceRoute,
+  MessagesRoute: MessagesRoute,
+  ParentRoute: ParentRoute,
+  PaymentsRoute: PaymentsRoute,
+  PostRequirementRoute: PostRequirementRoute,
+  PricingRoute: PricingRoute,
+  RegisterRoute: RegisterRoute,
+  ReviewsRoute: ReviewsRoute,
+  RoleSelectRoute: RoleSelectRoute,
+  StudentRoute: StudentRoute,
+  SupportRoute: SupportRoute,
+  TeacherRoute: TeacherRoute,
+  TutorsRoute: TutorsRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

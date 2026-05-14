@@ -1,26 +1,44 @@
 import { createFileRoute } from "@tanstack/react-router";
+import {
+  Hero, TrustStats, HowItWorks, TrendingCourses, LearnAI, FeaturedTutors,
+  CareerBanner, IndustryExperts, SkillsGrid, ComboPacks, HowYouLearn,
+  Certification, Comparison, Testimonials, VideoTestimonials, FAQSection, CTABand,
+} from "@/components/home/Sections";
 
 export const Route = createFileRoute("/")({
-  component: Index,
+  component: Home,
+  head: () => ({
+    meta: [
+      { title: "TeacherPoint — Find the best tutors and online courses" },
+      { name: "description", content: "Discover 12,500+ verified tutors and 5,000+ expert-led courses on TeacherPoint. Live 1-on-1, lifetime access, and certificates." },
+      { property: "og:title", content: "TeacherPoint — Learn from the best" },
+      { property: "og:description", content: "The trusted edtech marketplace for tutors and courses." },
+      { property: "og:url", content: "/" },
+    ],
+    links: [{ rel: "canonical", href: "/" }],
+  }),
 });
 
-// IMPORTANT: Replace this placeholder. For sites with multiple pages (About, Services, Contact, etc.),
-// create separate route files (about.tsx, services.tsx, contact.tsx) — don't put all pages in this file.
-function PlaceholderIndex() {
+function Home() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <>
+      <Hero />
+      <TrustStats />
+      <HowItWorks />
+      <TrendingCourses />
+      <LearnAI />
+      <FeaturedTutors />
+      <CareerBanner />
+      <IndustryExperts />
+      <SkillsGrid />
+      <ComboPacks />
+      <Certification />
+      <HowYouLearn />
+      <Comparison />
+      <Testimonials />
+      <VideoTestimonials />
+      <FAQSection />
+      <CTABand />
+    </>
   );
-}
-
-function Index() {
-  return <PlaceholderIndex />;
 }
