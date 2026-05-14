@@ -11,6 +11,7 @@ import {
 
 import appCss from "../styles.css?url";
 import { AppProvider } from "@/hooks/use-app";
+import { AdminStoreProvider } from "@/hooks/use-admin-store";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { MobileNav } from "@/components/layout/MobileNav";
@@ -95,16 +96,18 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <AppProvider>
-        <div className="min-h-screen flex flex-col bg-background text-foreground">
-          <Header />
-          <main className="flex-1 pb-20 lg:pb-0">
-            <Outlet />
-          </main>
-          {!isDashboard && <Footer />}
-          <MobileNav />
-          <ChatWidget />
-          <Toaster />
-        </div>
+        <AdminStoreProvider>
+          <div className="min-h-screen flex flex-col bg-background text-foreground">
+            <Header />
+            <main className="flex-1 pb-20 lg:pb-0">
+              <Outlet />
+            </main>
+            {!isDashboard && <Footer />}
+            <MobileNav />
+            <ChatWidget />
+            <Toaster />
+          </div>
+        </AdminStoreProvider>
       </AppProvider>
     </QueryClientProvider>
   );

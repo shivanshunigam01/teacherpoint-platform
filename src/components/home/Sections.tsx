@@ -15,11 +15,13 @@ import { CourseCard } from "@/components/cards/CourseCard";
 import { TutorCard } from "@/components/cards/TutorCard";
 import { SectionHeading } from "@/components/SectionHeading";
 import {
-  COURSES, TUTORS, CATEGORIES, SKILLS, COMBOS, TESTIMONIALS, FAQS,
+  CATEGORIES, SKILLS, TESTIMONIALS, FAQS,
   COMPANIES, STATS, HOW_IT_WORKS, LEARNING_TIMELINE, COMPARISON,
 } from "@/data/mock";
+import { useAdminStore } from "@/hooks/use-admin-store";
 import hero from "@/assets/hero-illustration.jpg";
 import careerBanner from "@/assets/career-banner.jpg";
+import { courseImage, tutorImage } from "@/data/images";
 
 const ICONS: Record<string, any> = {
   Sparkles, Code, Brain, BarChart3, Palette, Briefcase: Bcase, Megaphone, Languages, GraduationCap,
@@ -131,6 +133,7 @@ export function HowItWorks() {
 }
 
 export function TrendingCourses() {
+  const { courses: COURSES } = useAdminStore();
   return (
     <section className="container mx-auto px-4 py-12 md:py-16">
       <SectionHeading
@@ -163,6 +166,7 @@ export function TrendingCourses() {
 }
 
 export function LearnAI() {
+  const { courses: COURSES } = useAdminStore();
   return (
     <section className="container mx-auto px-4 py-12 md:py-16">
       <div className="rounded-3xl overflow-hidden bg-gradient-to-br from-indigo-500 via-purple-500 to-fuchsia-500 text-white p-8 md:p-12 grid md:grid-cols-2 gap-8 items-center relative">
@@ -178,8 +182,10 @@ export function LearnAI() {
         </div>
         <div className="relative grid grid-cols-2 gap-3">
           {COURSES.slice(0, 4).map((c) => (
-            <div key={c.id} className="bg-white/10 backdrop-blur rounded-2xl p-4 hover:bg-white/20 transition">
-              <div className="h-20 rounded-lg mb-3" style={{ background: c.gradient }} />
+            <div key={c.id} className="bg-white/10 backdrop-blur rounded-2xl p-3 hover:bg-white/20 transition overflow-hidden">
+              <div className="h-24 rounded-lg mb-3 overflow-hidden relative" style={{ background: c.gradient }}>
+                <img src={courseImage(c.id)} alt={c.title} loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
+              </div>
               <div className="text-sm font-semibold line-clamp-2">{c.title}</div>
               <div className="text-xs opacity-80 mt-1">⭐ {c.rating} · {c.duration}</div>
             </div>
@@ -191,6 +197,7 @@ export function LearnAI() {
 }
 
 export function FeaturedTutors() {
+  const { tutors: TUTORS } = useAdminStore();
   return (
     <section className="container mx-auto px-4 py-12 md:py-16">
       <SectionHeading
@@ -230,6 +237,7 @@ export function CareerBanner() {
 }
 
 export function IndustryExperts() {
+  const { courses: COURSES } = useAdminStore();
   return (
     <section className="bg-purple-soft/40 dark:bg-purple-soft/20 py-16 md:py-20">
       <div className="container mx-auto px-4">
@@ -237,13 +245,17 @@ export function IndustryExperts() {
         <div className="grid md:grid-cols-3 gap-5">
           {COURSES.slice(2, 5).map((c) => (
             <article key={c.id} className="bg-card border rounded-2xl overflow-hidden hover:shadow-card transition">
-              <div className="aspect-[16/10]" style={{ background: c.gradient }} />
+              <div className="aspect-[16/10] relative overflow-hidden" style={{ background: c.gradient }}>
+                <img src={courseImage(c.id)} alt={c.title} loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
+              </div>
               <div className="p-5">
                 <Badge variant="secondary" className="mb-3">{c.category}</Badge>
                 <h3 className="font-display font-bold text-lg leading-snug">{c.title}</h3>
                 <p className="text-sm text-muted-foreground mt-2">{c.description}</p>
                 <div className="mt-4 flex items-center gap-3 pt-4 border-t">
-                  <div className="h-9 w-9 rounded-full bg-gradient-primary text-white grid place-items-center font-bold text-sm">{c.instructor[0]}</div>
+                  <div className="h-9 w-9 rounded-full overflow-hidden bg-gradient-primary">
+                    <img src={tutorImage("t" + ((parseInt(c.id.slice(1)) % 12) + 1))} alt={c.instructor} className="h-full w-full object-cover" loading="lazy" />
+                  </div>
                   <div>
                     <div className="text-sm font-semibold">{c.instructor}</div>
                     <div className="text-xs text-muted-foreground">Senior Engineer · 8+ yrs</div>
@@ -282,6 +294,7 @@ export function SkillsGrid() {
 }
 
 export function ComboPacks() {
+  const { combos: COMBOS } = useAdminStore();
   return (
     <section className="container mx-auto px-4 py-12 md:py-16">
       <SectionHeading eyebrow="Save more" title="Combo packs — bundles built for outcomes" subtitle="Curated multi-course paths at unbeatable prices." />
@@ -352,7 +365,7 @@ export function Certification() {
         </div>
         <div className="relative">
           <div className="bg-card border rounded-3xl p-8 shadow-card">
-            <div className="border-2 border-dashed rounded-2xl p-8 text-center">
+            <div className="border-2 border-dashed border-border rounded-2xl p-8 text-center">
               <Award className="h-16 w-16 mx-auto text-amber-500" />
               <div className="text-xs uppercase tracking-widest text-muted-foreground mt-4">Certificate of Completion</div>
               <h3 className="font-display font-bold text-2xl mt-2">Aarav Patel</h3>
@@ -382,7 +395,7 @@ export function Comparison() {
             <div className="text-center text-muted-foreground">Others</div>
           </div>
           {COMPARISON.map((row, i) => (
-            <div key={row.feature} className={`grid grid-cols-3 px-6 py-3 text-sm items-center ${i % 2 === 0 ? "bg-background" : "bg-muted/20"}`}>
+            <div key={row.feature} className={`grid grid-cols-3 px-6 py-3 text-sm items-center ${i % 2 === 0 ? "bg-card" : "bg-muted/30"}`}>
               <div>{row.feature}</div>
               <div className="text-center">
                 {row.us ? <CheckCircle2 className="h-5 w-5 text-emerald-600 mx-auto" /> : <X className="h-5 w-5 text-muted-foreground mx-auto" />}
@@ -408,7 +421,9 @@ export function Testimonials() {
             <Quote className="h-7 w-7 text-primary/30" />
             <p className="text-sm mt-3 leading-relaxed">"{t.text}"</p>
             <div className="mt-4 flex items-center gap-3 pt-4 border-t">
-              <div className="h-10 w-10 rounded-full bg-gradient-primary text-white grid place-items-center text-sm font-bold">{t.initials}</div>
+              <div className="h-10 w-10 rounded-full overflow-hidden bg-gradient-primary">
+                <img src={tutorImage("t" + ((parseInt(t.id.slice(1)) % 12) + 1))} alt={t.name} loading="lazy" className="h-full w-full object-cover" />
+              </div>
               <div className="flex-1">
                 <div className="text-sm font-semibold">{t.name}</div>
                 <div className="text-xs text-muted-foreground">{t.role}</div>
