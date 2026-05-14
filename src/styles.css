@@ -57,7 +57,7 @@
 
   --shadow-soft: 0 4px 24px -6px oklch(0.5 0.15 250 / 0.12);
   --shadow-card: 0 8px 30px -8px oklch(0.4 0.12 250 / 0.18);
-  --gradient-hero: linear-gradient(135deg, oklch(0.97 0.03 240) 0%, oklch(0.94 0.06 230) 100%);
+  --gradient-hero: linear-gradient(135deg, var(--background) 0%, color-mix(in oklab, var(--primary) 8%, var(--background)) 100%);
   --gradient-primary: linear-gradient(135deg, oklch(0.55 0.22 260) 0%, oklch(0.62 0.18 230) 100%);
   --gradient-purple: linear-gradient(135deg, oklch(0.45 0.22 290) 0%, oklch(0.35 0.18 270) 100%);
   --gradient-card-1: linear-gradient(135deg, #38bdf8, #6366f1);
