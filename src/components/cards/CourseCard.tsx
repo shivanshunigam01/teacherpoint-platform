@@ -2,16 +2,19 @@ import { Link } from "@tanstack/react-router";
 import { Star, Clock, Users, BookOpen, Award } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { Course } from "@/data/mock";
+import { courseImage } from "@/data/images";
 
 export function CourseCard({ course }: { course: Course }) {
+  const img = (course as any).image || courseImage(course.id);
   return (
     <Link to="/courses/$id" params={{ id: course.id }} className="group block">
       <article className="bg-card border rounded-2xl overflow-hidden h-full hover:shadow-card transition-all hover:-translate-y-1">
         <div className="aspect-video relative overflow-hidden" style={{ background: course.gradient }}>
-          <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition" />
+          <img src={img} alt={course.title} loading="lazy" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10" />
           <div className="absolute top-3 left-3 flex gap-2">
             {course.bestseller && <Badge className="bg-amber-400 text-amber-950 hover:bg-amber-400">Bestseller</Badge>}
-            {course.certificate && <Badge variant="secondary" className="bg-white/90 text-slate-900"><Award className="h-3 w-3 mr-1" />Cert</Badge>}
+            {course.certificate && <Badge className="bg-white/95 text-slate-900 hover:bg-white"><Award className="h-3 w-3 mr-1" />Cert</Badge>}
           </div>
           <div className="absolute bottom-3 left-3 right-3 text-white">
             <div className="text-xs opacity-90 uppercase tracking-wide">{course.category}</div>
@@ -33,7 +36,7 @@ export function CourseCard({ course }: { course: Course }) {
           <div className="flex items-end gap-2 mt-3">
             <span className="font-display font-bold text-lg">${course.price}</span>
             <span className="text-xs text-muted-foreground line-through">${course.oldPrice}</span>
-            <span className="text-xs text-emerald-600 font-semibold ml-auto">{course.level}</span>
+            <span className="text-xs text-emerald-600 dark:text-emerald-400 font-semibold ml-auto">{course.level}</span>
           </div>
         </div>
       </article>
