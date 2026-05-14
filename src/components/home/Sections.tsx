@@ -178,8 +178,10 @@ export function LearnAI() {
         </div>
         <div className="relative grid grid-cols-2 gap-3">
           {COURSES.slice(0, 4).map((c) => (
-            <div key={c.id} className="bg-white/10 backdrop-blur rounded-2xl p-4 hover:bg-white/20 transition">
-              <div className="h-20 rounded-lg mb-3" style={{ background: c.gradient }} />
+            <div key={c.id} className="bg-white/10 backdrop-blur rounded-2xl p-3 hover:bg-white/20 transition overflow-hidden">
+              <div className="h-24 rounded-lg mb-3 overflow-hidden relative" style={{ background: c.gradient }}>
+                <img src={courseImage(c.id)} alt={c.title} loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
+              </div>
               <div className="text-sm font-semibold line-clamp-2">{c.title}</div>
               <div className="text-xs opacity-80 mt-1">⭐ {c.rating} · {c.duration}</div>
             </div>
