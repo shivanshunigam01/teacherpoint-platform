@@ -133,6 +133,7 @@ export function HowItWorks() {
 }
 
 export function TrendingCourses() {
+  const { courses: COURSES } = useAdminStore();
   return (
     <section className="container mx-auto px-4 py-12 md:py-16">
       <SectionHeading
@@ -165,6 +166,7 @@ export function TrendingCourses() {
 }
 
 export function LearnAI() {
+  const { courses: COURSES } = useAdminStore();
   return (
     <section className="container mx-auto px-4 py-12 md:py-16">
       <div className="rounded-3xl overflow-hidden bg-gradient-to-br from-indigo-500 via-purple-500 to-fuchsia-500 text-white p-8 md:p-12 grid md:grid-cols-2 gap-8 items-center relative">
@@ -195,6 +197,7 @@ export function LearnAI() {
 }
 
 export function FeaturedTutors() {
+  const { tutors: TUTORS } = useAdminStore();
   return (
     <section className="container mx-auto px-4 py-12 md:py-16">
       <SectionHeading
@@ -234,6 +237,7 @@ export function CareerBanner() {
 }
 
 export function IndustryExperts() {
+  const { courses: COURSES } = useAdminStore();
   return (
     <section className="bg-purple-soft/40 dark:bg-purple-soft/20 py-16 md:py-20">
       <div className="container mx-auto px-4">
@@ -290,6 +294,7 @@ export function SkillsGrid() {
 }
 
 export function ComboPacks() {
+  const { combos: COMBOS } = useAdminStore();
   return (
     <section className="container mx-auto px-4 py-12 md:py-16">
       <SectionHeading eyebrow="Save more" title="Combo packs — bundles built for outcomes" subtitle="Curated multi-course paths at unbeatable prices." />
