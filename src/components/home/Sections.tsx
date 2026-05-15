@@ -65,8 +65,17 @@ export function Hero() {
           </div>
         </motion.div>
         <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7, delay: 0.1 }} className="relative">
-          <div className="relative rounded-3xl overflow-hidden shadow-card">
-            <img src={hero} alt="Students learning with TeacherPoint" width={1536} height={1024} className="w-full h-auto" />
+          <div className="relative rounded-3xl overflow-hidden shadow-card aspect-video bg-muted">
+            <video
+              src="/hero-video.mp4"
+              poster={hero}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-full object-cover"
+              aria-label="Students learning with TeacherPoint"
+            />
           </div>
           <div className="absolute -bottom-4 -left-4 bg-card border rounded-2xl p-4 shadow-card hidden md:block">
             <div className="flex items-center gap-3">
