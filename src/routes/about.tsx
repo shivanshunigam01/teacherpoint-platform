@@ -2,14 +2,14 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Heart, Globe, Award, Users } from "lucide-react";
 import { STATS } from "@/data/mock";
 
-export const Route = createFileRoute("/about")({ component: About, head: () => ({ meta: [{ title: "About · TeacherPoint" }, { name: "description", content: "TeacherPoint's mission, story and team." }], links: [{ rel: "canonical", href: "/about" }] }) });
+export const Route = createFileRoute("/about")({ component: About, head: () => ({ meta: [{ title: "About · TeachersPoints" }, { name: "description", content: "TeachersPoints's mission, story and team." }], links: [{ rel: "canonical", href: "/about" }] }) });
 
 function About() {
   return (
     <section className="container mx-auto px-4 py-16">
       <div className="max-w-3xl">
         <h1 className="font-display font-extrabold text-4xl md:text-5xl">We make great learning <span className="text-gradient-primary">universally accessible</span>.</h1>
-        <p className="mt-5 text-lg text-muted-foreground">TeacherPoint connects 850K+ students, parents, and verified expert tutors across 120 countries through live sessions, on-demand courses, and certifications that move careers forward.</p>
+        <p className="mt-5 text-lg text-muted-foreground">TeachersPoints connects 850K+ students, parents, and verified expert tutors across 120 countries through live sessions, on-demand courses, and certifications that move careers forward.</p>
       </div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 my-12">
         {STATS.map((s) => (

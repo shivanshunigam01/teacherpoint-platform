@@ -8,7 +8,7 @@ export function CourseCard({ course }: { course: Course }) {
   const img = (course as any).image || courseImage(course.id);
   return (
     <Link to="/courses/$id" params={{ id: course.id }} className="group block">
-      <article className="bg-card border rounded-2xl overflow-hidden h-full hover:shadow-card transition-all hover:-translate-y-1">
+      <article className="h-full overflow-hidden rounded-xl border bg-card transition-shadow hover:shadow-md">
         <div className="aspect-video relative overflow-hidden" style={{ background: course.gradient }}>
           <img src={img} alt={course.title} loading="lazy" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10" />

@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { TUTORS } from "@/data/mock";
 
-export const Route = createFileRoute("/messages")({ component: Messages, head: () => ({ meta: [{ title: "Messages · TeacherPoint" }] }) });
+export const Route = createFileRoute("/messages")({ component: Messages, head: () => ({ meta: [{ title: "Messages · TeachersPoints" }] }) });
 
 function Messages() {
   const [active, setActive] = useState(TUTORS[0]);

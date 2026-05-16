@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip } from "recharts";
 
-export const Route = createFileRoute("/teacher")({ component: Teacher, head: () => ({ meta: [{ title: "Teacher Dashboard · TeacherPoint" }, { name: "robots", content: "noindex" }] }) });
+export const Route = createFileRoute("/teacher")({ component: Teacher, head: () => ({ meta: [{ title: "Teacher Dashboard · TeachersPoints" }, { name: "robots", content: "noindex" }] }) });
 
 const ITEMS = [
   { to: "/teacher", label: "Overview", icon: LayoutDashboard },

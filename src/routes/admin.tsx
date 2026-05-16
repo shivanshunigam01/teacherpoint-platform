@@ -21,7 +21,7 @@ import type { Combo } from "@/hooks/use-admin-store";
 
 export const Route = createFileRoute("/admin")({
   component: Admin,
-  head: () => ({ meta: [{ title: "Admin Dashboard · TeacherPoint" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "Admin Dashboard · TeachersPoints" }, { name: "robots", content: "noindex" }] }),
 });
 
 const ITEMS = [

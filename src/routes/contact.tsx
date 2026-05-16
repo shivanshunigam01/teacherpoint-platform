@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 
-export const Route = createFileRoute("/contact")({ component: Contact, head: () => ({ meta: [{ title: "Contact · TeacherPoint" }, { name: "description", content: "Get in touch with the TeacherPoint team." }], links: [{ rel: "canonical", href: "/contact" }] }) });
+export const Route = createFileRoute("/contact")({ component: Contact, head: () => ({ meta: [{ title: "Contact · TeachersPoints" }, { name: "description", content: "Get in touch with the TeachersPoints team." }], links: [{ rel: "canonical", href: "/contact" }] }) });
 
 function Contact() {
   return (
@@ -14,7 +14,7 @@ function Contact() {
         <h1 className="font-display font-extrabold text-4xl">Let's talk</h1>
         <p className="text-muted-foreground mt-3">Questions, partnerships, or feedback — we'd love to hear from you.</p>
         <ul className="mt-8 space-y-4 text-sm">
-          <li className="flex items-center gap-3"><Mail className="h-5 w-5 text-primary" />hello@teacherpoint.com</li>
+          <li className="flex items-center gap-3"><Mail className="h-5 w-5 text-primary" />hello@teacherspoints.com</li>
           <li className="flex items-center gap-3"><Phone className="h-5 w-5 text-primary" />+1 (555) 010-1100</li>
           <li className="flex items-center gap-3"><MapPin className="h-5 w-5 text-primary" />San Francisco · Bengaluru · London</li>
         </ul>

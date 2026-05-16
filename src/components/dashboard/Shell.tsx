@@ -5,7 +5,7 @@ import {
   SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarProvider, SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { useApp } from "@/hooks/use-app";
-import logo from "@/assets/teacherpoint-logo.png";
+import { BrandLogo } from "@/components/BrandLogo";
 
 export interface NavItem { to: string; label: string; icon: any; }
 
@@ -19,7 +19,7 @@ export function DashboardShell({ items, title, children }: { items: NavItem[]; t
         <Sidebar collapsible="icon">
           <SidebarContent>
             <div className="px-4 py-4 flex items-center gap-2 border-b">
-              <img src={logo} alt="" className="h-8 w-8 rounded-lg" />
+              <BrandLogo size="sidebar" />
               <div className="font-display font-bold">{title}</div>
             </div>
             <SidebarGroup>

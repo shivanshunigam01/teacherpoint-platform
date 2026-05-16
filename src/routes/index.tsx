@@ -9,9 +9,9 @@ export const Route = createFileRoute("/")({
   component: Home,
   head: () => ({
     meta: [
-      { title: "TeacherPoint — Find the best tutors and online courses" },
-      { name: "description", content: "Discover 12,500+ verified tutors and 5,000+ expert-led courses on TeacherPoint. Live 1-on-1, lifetime access, and certificates." },
-      { property: "og:title", content: "TeacherPoint — Learn from the best" },
+      { title: "TeachersPoints — Find the best tutors and online courses" },
+      { name: "description", content: "Discover 12,500+ verified tutors and 5,000+ expert-led courses on TeachersPoints. Live 1-on-1, lifetime access, and certificates." },
+      { property: "og:title", content: "TeachersPoints — Learn from the best" },
       { property: "og:description", content: "The trusted edtech marketplace for tutors and courses." },
       { property: "og:url", content: "/" },
     ],

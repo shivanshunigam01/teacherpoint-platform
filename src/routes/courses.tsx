@@ -13,7 +13,7 @@ import { COURSES, CATEGORIES } from "@/data/mock";
 export const Route = createFileRoute("/courses")({
   component: CoursesPage,
   head: () => ({
-    meta: [{ title: "Courses · TeacherPoint" }, { name: "description", content: "Browse expert-led courses with industry-recognized certificates." }],
+    meta: [{ title: "Courses · TeachersPoints" }, { name: "description", content: "Browse expert-led courses with industry-recognized certificates." }],
     links: [{ rel: "canonical", href: "/courses" }],
   }),
 });

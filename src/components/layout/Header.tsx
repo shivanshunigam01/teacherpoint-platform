@@ -1,14 +1,18 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { useState } from "react";
-import { Search, Moon, Sun, Globe, Menu, X, ShoppingCart, Bell, ChevronDown, Mic } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Search, Moon, Sun, Globe, Menu, X, Bell, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useApp } from "@/hooks/use-app";
-import logo from "@/assets/teacherpoint-logo.png";
+import { BrandLogo } from "@/components/BrandLogo";
 import { CATEGORIES } from "@/data/mock";
 import {
-  DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger,
-  DropdownMenuLabel, DropdownMenuSeparator,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 
 const NAV = [
@@ -16,121 +20,156 @@ const NAV = [
   { to: "/tutors", label: "Tutors" },
   { to: "/lms", label: "LMS" },
   { to: "/marketplace", label: "Marketplace" },
-  { to: "/post-requirement", label: "Post Job" },
 ];
 
 export function Header() {
   const { theme, toggleTheme, lang, setLang, role, user, logout } = useApp();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [catOpen, setCatOpen] = useState(false);
   const path = useRouterState({ select: (s) => s.location.pathname });
+
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
+  const navLinkClass = (to: string) =>
+    `block rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
+      path === to || (to !== "/" && path.startsWith(to))
+        ? "bg-primary/10 text-primary"
+        : "text-foreground hover:bg-muted"
+    }`;
 
   return (
     <>
-      {/* promo bar */}
-      <div className="bg-gradient-primary text-primary-foreground text-xs sm:text-sm py-2 px-4 text-center font-medium">
-        🎓 Mid-year sale — courses from $9.99 · ends in 2 days. <Link to="/courses" className="underline ml-1">Shop now</Link>
+      <div className="border-b bg-muted/50 text-center text-xs sm:text-sm text-muted-foreground py-2 px-4">
+        Spring sale on select courses —{" "}
+        <Link to="/courses" className="font-medium text-primary underline-offset-2 hover:underline">
+          Browse deals
+        </Link>
       </div>
 
-      <header className="sticky top-0 z-40 bg-background/85 backdrop-blur border-b">
-        <div className="container mx-auto px-4 h-16 flex items-center gap-3">
-          <Link to="/" className="flex items-center gap-2 shrink-0" aria-label="TeacherPoint home">
-            <img src={logo} alt="TeacherPoint logo" className="h-9 w-9 rounded-lg object-contain" />
-            <span className="font-display font-bold text-lg hidden sm:block">TeacherPoint</span>
+      <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/80">
+        <div className="container mx-auto flex h-16 items-center gap-2 px-4 sm:gap-3 sm:px-6">
+          <Link to="/" className="flex shrink-0 items-center" aria-label="TeachersPoints home">
+            <BrandLogo size="header" />
           </Link>
 
-          <DropdownMenu open={catOpen} onOpenChange={setCatOpen}>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="hidden lg:flex gap-1">
-                Categories <ChevronDown className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="start" className="w-56">
-              <DropdownMenuLabel>Browse</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              {CATEGORIES.slice(1).map((c) => (
-                <DropdownMenuItem key={c.id} asChild>
-                  <Link to="/courses" search={{ category: c.name } as any}>{c.name}</Link>
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          <div className="hidden md:flex flex-1 max-w-2xl relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <div className="relative hidden min-w-0 flex-1 md:block md:max-w-md lg:max-w-xl">
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
-              placeholder="Search courses, tutors, skills…"
-              className="pl-10 pr-10 rounded-full bg-muted/40"
+              placeholder="Search courses or tutors…"
+              className="h-10 rounded-lg border-border/80 bg-muted/50 pl-10"
               aria-label="Search"
             />
-            <button aria-label="Voice search" className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-primary">
-              <Mic className="h-4 w-4" />
-            </button>
           </div>
 
-          <nav className="hidden xl:flex items-center gap-1 ml-2">
+          <nav className="hidden items-center gap-0.5 lg:flex" aria-label="Main">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="sm" className="gap-1 font-medium">
+                  Categories <ChevronDown className="h-4 w-4 opacity-60" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-52">
+                <DropdownMenuLabel>Browse by topic</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {CATEGORIES.slice(1).map((c) => (
+                  <DropdownMenuItem key={c.id} asChild>
+                    <Link to="/courses" search={{ category: c.name } as any}>
+                      {c.name}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
             {NAV.map((n) => (
               <Link
                 key={n.to}
                 to={n.to}
-                className={`px-3 py-1.5 text-sm rounded-md hover:bg-accent transition ${path.startsWith(n.to) ? "text-primary font-semibold" : ""}`}
+                className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                  path.startsWith(n.to) ? "text-primary" : "text-muted-foreground hover:text-foreground"
+                }`}
               >
                 {n.label}
               </Link>
             ))}
+            <Link
+              to="/post-requirement"
+              className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                path.startsWith("/post-requirement") ? "text-primary" : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              Post a job
+            </Link>
           </nav>
 
-          <div className="flex items-center gap-1 ml-auto">
-            <Button variant="ghost" size="icon" aria-label="Toggle dark mode" onClick={toggleTheme}>
+          <div className="ml-auto flex items-center gap-1 sm:gap-1.5">
+            <Button variant="ghost" size="icon" className="shrink-0" aria-label="Toggle theme" onClick={toggleTheme}>
               {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
             </Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" aria-label="Language" className="hidden sm:flex">
+                <Button variant="ghost" size="icon" className="hidden shrink-0 sm:flex" aria-label="Language">
                   <Globe className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => setLang("en")}>{lang === "en" && "✓ "}English</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setLang("hi")}>{lang === "hi" && "✓ "}हिंदी</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setLang("en")}>{lang === "en" ? "✓ " : ""}English</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setLang("hi")}>{lang === "hi" ? "✓ " : ""}हिंदी</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-            <Button variant="ghost" size="icon" aria-label="Notifications" className="hidden sm:flex relative">
+            <Button variant="ghost" size="icon" className="relative hidden shrink-0 md:flex" aria-label="Notifications">
               <Bell className="h-4 w-4" />
-              <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-destructive" />
-            </Button>
-            <Button variant="ghost" size="icon" aria-label="Cart" className="hidden sm:flex">
-              <ShoppingCart className="h-4 w-4" />
+              <span className="absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-destructive" />
             </Button>
 
             {role && user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm" className="gap-2">
-                    <div className="h-7 w-7 rounded-full bg-gradient-primary text-primary-foreground grid place-items-center text-xs font-bold">
+                  <Button variant="outline" size="sm" className="hidden gap-2 sm:flex">
+                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">
                       {user.name.charAt(0)}
-                    </div>
-                    <span className="hidden md:inline text-sm capitalize">{role}</span>
+                    </span>
+                    <span className="max-w-[5rem] truncate capitalize">{role}</span>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-52">
-                  <DropdownMenuLabel className="capitalize">{user.name} · {role}</DropdownMenuLabel>
+                  <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem asChild><Link to={`/${role}` as any}>Dashboard</Link></DropdownMenuItem>
-                  <DropdownMenuItem asChild><Link to="/messages">Messages</Link></DropdownMenuItem>
-                  <DropdownMenuItem asChild><Link to="/support">Support</Link></DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to={`/${role}` as any}>Dashboard</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/messages">Messages</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/support">Support</Link>
+                  </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={logout}>Log out</DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
               <>
-                <Button asChild variant="ghost" size="sm" className="hidden sm:flex"><Link to="/login">Log in</Link></Button>
-                <Button asChild size="sm" className="bg-gradient-primary"><Link to="/role-select">Sign up</Link></Button>
+                <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
+                  <Link to="/login">Log in</Link>
+                </Button>
+                <Button asChild size="sm" className="hidden bg-primary sm:inline-flex">
+                  <Link to="/role-select">Sign up</Link>
+                </Button>
               </>
             )}
 
-            <Button variant="ghost" size="icon" className="xl:hidden" aria-label="Menu" onClick={() => setMobileOpen(!mobileOpen)}>
+            <Button
+              variant="outline"
+              size="icon"
+              className="shrink-0 lg:hidden"
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileOpen}
+              onClick={() => setMobileOpen((o) => !o)}
+            >
               {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
           </div>
@@ -153,7 +192,7 @@ export function Header() {
               )}
             </div>
           </div>
-        )}
+              )}
       </header>
     </>
   );

@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Facebook, Twitter, Instagram, Linkedin, Youtube, Mail } from "lucide-react";
-import logo from "@/assets/teacherpoint-logo.png";
+import { BrandLogo } from "@/components/BrandLogo";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
@@ -16,7 +16,7 @@ const COLS = [
     ],
   },
   {
-    title: "TeacherPoint",
+    title: "TeachersPoints",
     links: [
       { to: "/about", label: "About" },
       { to: "/contact", label: "Contact" },
@@ -44,8 +44,8 @@ const POPULAR_SKILLS = [
 
 export function Footer() {
   return (
-    <footer className="bg-[#0b1220] text-slate-300 mt-24">
-      <div className="container mx-auto px-4 py-16">
+    <footer className="mt-16 bg-[#0b1220] text-slate-300">
+      <div className="container mx-auto px-4 py-12 sm:px-6 sm:py-16">
         {/* Popular skills */}
         <div className="mb-12">
           <h3 className="text-white font-display text-lg mb-4">Popular skills students are learning</h3>
@@ -60,9 +60,8 @@ export function Footer() {
 
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
           <div className="col-span-2">
-            <div className="flex items-center gap-2 mb-4">
-              <img src={logo} alt="TeacherPoint" className="h-9 w-9 rounded-lg" />
-              <span className="font-display font-bold text-white text-lg">TeacherPoint</span>
+            <div className="mb-4">
+              <BrandLogo size="footer" />
             </div>
             <p className="text-sm text-slate-400 max-w-sm mb-4">
               The trusted edtech marketplace connecting students, parents, and the world's best tutors.
@@ -107,7 +106,7 @@ export function Footer() {
         </div>
 
         <div className="mt-8 pt-6 border-t border-white/10 flex flex-col md:flex-row gap-4 items-center justify-between text-xs text-slate-500">
-          <p>© 2026 TeacherPoint. All rights reserved.</p>
+          <p>© 2026 TeachersPoints. All rights reserved.</p>
           <div className="flex gap-4">
             <a href="#">Privacy</a>
             <a href="#">Terms</a>

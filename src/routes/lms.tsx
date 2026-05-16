@@ -6,7 +6,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 
-export const Route = createFileRoute("/lms")({ component: LMS, head: () => ({ meta: [{ title: "LMS · TeacherPoint" }, { name: "robots", content: "noindex" }] }) });
+export const Route = createFileRoute("/lms")({ component: LMS, head: () => ({ meta: [{ title: "LMS · TeachersPoints" }, { name: "robots", content: "noindex" }] }) });
 
 function LMS() {
   return (

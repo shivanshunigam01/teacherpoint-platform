@@ -5,7 +5,7 @@ import { TESTIMONIALS } from "@/data/mock";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
-export const Route = createFileRoute("/reviews")({ component: Reviews, head: () => ({ meta: [{ title: "Reviews · TeacherPoint" }] }) });
+export const Route = createFileRoute("/reviews")({ component: Reviews, head: () => ({ meta: [{ title: "Reviews · TeachersPoints" }] }) });
 
 function Reviews() {
   const [rating, setRating] = useState(5);
@@ -13,7 +13,7 @@ function Reviews() {
   return (
     <section className="container mx-auto px-4 py-10 max-w-4xl">
       <h1 className="font-display font-extrabold text-3xl">Student reviews</h1>
-      <p className="text-muted-foreground mt-2">Real feedback from verified TeacherPoint learners.</p>
+      <p className="text-muted-foreground mt-2">Real feedback from verified TeachersPoints learners.</p>
 
       <div className="bg-card border rounded-2xl p-6 mt-8">
         <h2 className="font-display font-bold mb-3">Leave a review</h2>

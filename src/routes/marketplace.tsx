@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { GRADIENTS } from "@/data/mock";
 
-export const Route = createFileRoute("/marketplace")({ component: Market, head: () => ({ meta: [{ title: "Marketplace · TeacherPoint" }, { name: "description", content: "Study materials, services and accommodation for students." }] }) });
+export const Route = createFileRoute("/marketplace")({ component: Market, head: () => ({ meta: [{ title: "Marketplace · TeachersPoints" }, { name: "description", content: "Study materials, services and accommodation for students." }] }) });
 
 const ITEMS = [
   { cat: "materials", title: "Class 12 Physics Notes Bundle", price: 9, by: "Mark Wilson", g: 0 },

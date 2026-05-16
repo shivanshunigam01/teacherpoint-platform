@@ -57,16 +57,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "TeacherPoint — Find the best tutors and online courses" },
-      { name: "description", content: "TeacherPoint connects students, parents and verified tutors worldwide. Discover expert-led courses, live tutoring, and earn certificates." },
-      { name: "author", content: "TeacherPoint" },
+      { title: "TeachersPoints — Find the best tutors and online courses" },
+      { name: "description", content: "TeachersPoints connects students, parents and verified tutors worldwide. Discover expert-led courses, live tutoring, and earn certificates." },
+      { name: "author", content: "TeachersPoints" },
       { name: "theme-color", content: "#1e3a8a" },
-      { property: "og:title", content: "TeacherPoint — Learn from the best" },
+      { property: "og:title", content: "TeachersPoints — Learn from the best" },
       { property: "og:description", content: "The trusted edtech marketplace for tutors and courses." },
       { property: "og:type", content: "website" },
-      { property: "og:site_name", content: "TeacherPoint" },
+      { property: "og:site_name", content: "TeachersPoints" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@teacherpoint" },
+      { name: "twitter:site", content: "@teacherspoints" },
     ],
     links: [{ rel: "stylesheet", href: appCss }],
   }),
@@ -99,12 +99,12 @@ function RootComponent() {
         <AdminStoreProvider>
           <div className="min-h-screen flex flex-col bg-background text-foreground">
             <Header />
-            <main className="flex-1 pb-20 lg:pb-0">
+            <main className="flex-1 pb-[calc(5rem+env(safe-area-inset-bottom))] lg:pb-0">
               <Outlet />
             </main>
             {!isDashboard && <Footer />}
-            <MobileNav />
-            <ChatWidget />
+            {!isDashboard && <MobileNav />}
+            {!isDashboard && <ChatWidget />}
             <Toaster />
           </div>
         </AdminStoreProvider>

@@ -13,7 +13,7 @@ import { TUTORS } from "@/data/mock";
 export const Route = createFileRoute("/tutors")({
   component: TutorsPage,
   head: () => ({
-    meta: [{ title: "Find a Tutor · TeacherPoint" }, { name: "description", content: "Browse 12,500+ verified tutors across subjects, languages and budgets." }],
+    meta: [{ title: "Find a Tutor · TeachersPoints" }, { name: "description", content: "Browse 12,500+ verified tutors across subjects, languages and budgets." }],
     links: [{ rel: "canonical", href: "/tutors" }],
   }),
 });

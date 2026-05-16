@@ -4,14 +4,14 @@ import { Mail, Lock, Eye, EyeOff, Github, ChromeIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import logo from "@/assets/teacherpoint-logo.png";
+import { BrandLogo } from "@/components/BrandLogo";
 import { useApp } from "@/hooks/use-app";
 import { DEMO_USERS, type Role } from "@/data/mock";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/login")({
   component: Login,
-  head: () => ({ meta: [{ title: "Log in · TeacherPoint" }, { name: "description", content: "Log in to your TeacherPoint account." }] }),
+  head: () => ({ meta: [{ title: "Log in · TeachersPoints" }, { name: "description", content: "Log in to your TeachersPoints account." }] }),
 });
 
 function Login() {
@@ -28,8 +28,8 @@ function Login() {
   return (
     <section className="container mx-auto px-4 py-12 grid lg:grid-cols-2 gap-12 items-center max-w-6xl">
       <div className="hidden lg:block">
-        <img src={logo} alt="TeacherPoint" className="h-12 w-12 rounded-xl mb-6" />
-        <h1 className="font-display font-extrabold text-4xl leading-tight">Welcome back to <span className="text-gradient-primary">TeacherPoint</span></h1>
+        <BrandLogo size="login" className="mb-6" />
+        <h1 className="font-display font-extrabold text-4xl leading-tight">Welcome back to <span className="text-gradient-primary">TeachersPoints</span></h1>
         <p className="mt-4 text-muted-foreground max-w-md">Pick up right where you left off. Live tutors, full courses, and your certificates — all in one place.</p>
         <div className="mt-8 grid grid-cols-2 gap-4 max-w-md">
           {[["12.5K+", "Tutors"], ["850K+", "Students"], ["5K+", "Courses"], ["4.9★", "Rating"]].map(([v, l]) => (

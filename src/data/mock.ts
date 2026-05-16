@@ -116,23 +116,23 @@ export const COMBOS = [
 ];
 
 export const TESTIMONIALS = [
-  { id: "r1", name: "Aarav Patel", role: "Student, Class 12", rating: 5, text: "TeacherPoint helped me find the perfect math tutor. My grades jumped from B to A+ in 3 months!", initials: "AP" },
+  { id: "r1", name: "Aarav Patel", role: "Student, Class 12", rating: 5, text: "TeachersPoints helped me find the perfect math tutor. My grades jumped from B to A+ in 3 months!", initials: "AP" },
   { id: "r2", name: "Jessica Wong", role: "UI Designer", rating: 5, text: "The UI/UX bootcamp was hands-on and got me my first design job at a startup.", initials: "JW" },
   { id: "r3", name: "Mohammed Khan", role: "Software Engineer", rating: 5, text: "Best platform for live tutoring. The AI assistant recommended courses I actually needed.", initials: "MK" },
   { id: "r4", name: "Sofia Rodriguez", role: "Marketing Lead", rating: 5, text: "Loved the combo packs — saved tons and learned a complete skill stack.", initials: "SR" },
   { id: "r5", name: "Ryan O'Connor", role: "Parent", rating: 5, text: "I track my son's progress weekly. The parent dashboard is a game-changer.", initials: "RO" },
-  { id: "r6", name: "Mei Lin", role: "Career Switcher", rating: 5, text: "Switched from finance to data science thanks to TeacherPoint mentors.", initials: "ML" },
+  { id: "r6", name: "Mei Lin", role: "Career Switcher", rating: 5, text: "Switched from finance to data science thanks to TeachersPoints mentors.", initials: "ML" },
 ];
 
 export const FAQS = [
-  { q: "How do I find the right tutor on TeacherPoint?", a: "Use our advanced filters — subject, price, location, language, and verified badges — to shortlist tutors. You can chat with up to 3 free trial sessions before booking." },
-  { q: "Are courses on TeacherPoint certified?", a: "Yes — every course includes a verified completion certificate that can be shared on LinkedIn and added to your resume." },
+  { q: "How do I find the right tutor on TeachersPoints?", a: "Use our advanced filters — subject, price, location, language, and verified badges — to shortlist tutors. You can chat with up to 3 free trial sessions before booking." },
+  { q: "Are courses on TeachersPoints certified?", a: "Yes — every course includes a verified completion certificate that can be shared on LinkedIn and added to your resume." },
   { q: "Can parents track their child's learning?", a: "Absolutely. The Parent Dashboard shows enrolled courses, attendance, test scores, and weekly learning hours in real time." },
   { q: "What payment methods are supported?", a: "We accept Razorpay, Stripe, PayPal, UPI, debit/credit cards, and net banking across multiple currencies." },
   { q: "Is there a refund policy?", a: "Yes — 7-day no-questions-asked refund on every course and tutor session purchase." },
   { q: "How do teachers get verified?", a: "Teachers submit ID, qualifications, and complete a demo class. Our review team verifies within 48 hours." },
   { q: "Do you support live and recorded learning?", a: "Both. Most courses include lifetime recorded access; tutors offer 1-on-1 live sessions in your timezone." },
-  { q: "Can I become a teacher on TeacherPoint?", a: "Yes — apply via 'Become a Teacher'. Once verified, you can list courses, accept students, and earn weekly payouts." },
+  { q: "Can I become a teacher on TeachersPoints?", a: "Yes — apply via 'Become a Teacher'. Once verified, you can list courses, accept students, and earn weekly payouts." },
 ];
 
 export const COMPANIES = ["Google", "Microsoft", "Amazon", "Meta", "Netflix", "Adobe", "IBM", "Spotify"];
@@ -211,8 +211,8 @@ export const ADMIN_USERS = [
 ];
 
 export const DEMO_USERS: Record<Role, { name: string; email: string }> = {
-  student: { name: "Aarav Patel", email: "student@teacherpoint.com" },
-  teacher: { name: "Emma Smith", email: "teacher@teacherpoint.com" },
-  parent: { name: "Ryan O'Connor", email: "parent@teacherpoint.com" },
-  admin: { name: "Admin", email: "admin@teacherpoint.com" },
+  student: { name: "Aarav Patel", email: "student@teacherspoints.com" },
+  teacher: { name: "Emma Smith", email: "teacher@teacherspoints.com" },
+  parent: { name: "Ryan O'Connor", email: "parent@teacherspoints.com" },
+  admin: { name: "Admin", email: "admin@teacherspoints.com" },
 };

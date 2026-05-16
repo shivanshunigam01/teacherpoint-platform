@@ -4,7 +4,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
-export const Route = createFileRoute("/payments")({ component: Payments, head: () => ({ meta: [{ title: "Payments · TeacherPoint" }, { name: "robots", content: "noindex" }] }) });
+export const Route = createFileRoute("/payments")({ component: Payments, head: () => ({ meta: [{ title: "Payments · TeachersPoints" }, { name: "robots", content: "noindex" }] }) });
 
 const TX = [
   { id: "INV-1042", date: "May 12, 2026", item: "AI Coding Agents Course", amount: 19, method: "Stripe", status: "Paid" },

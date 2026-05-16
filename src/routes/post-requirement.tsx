@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
 
-export const Route = createFileRoute("/post-requirement")({ component: Post, head: () => ({ meta: [{ title: "Post a Requirement · TeacherPoint" }] }) });
+export const Route = createFileRoute("/post-requirement")({ component: Post, head: () => ({ meta: [{ title: "Post a Requirement · TeachersPoints" }] }) });
 
 function Post() {
   return (

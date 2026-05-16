@@ -6,7 +6,7 @@ import { toast } from "sonner";
 
 export const Route = createFileRoute("/role-select")({
   component: RoleSelect,
-  head: () => ({ meta: [{ title: "Choose your role · TeacherPoint" }] }),
+  head: () => ({ meta: [{ title: "Choose your role · TeachersPoints" }] }),
 });
 
 const ROLES: { id: Role; title: string; desc: string; icon: any; color: string }[] = [
@@ -23,7 +23,7 @@ function RoleSelect() {
   return (
     <section className="container mx-auto px-4 py-16 max-w-4xl">
       <div className="text-center mb-10">
-        <h1 className="font-display font-extrabold text-3xl md:text-4xl">Welcome — let's personalize TeacherPoint for you</h1>
+        <h1 className="font-display font-extrabold text-3xl md:text-4xl">Welcome — let's personalize TeachersPoints for you</h1>
         <p className="mt-3 text-muted-foreground">Pick the role that best describes you. You can change this later.</p>
       </div>
       <div className="grid sm:grid-cols-2 gap-5">

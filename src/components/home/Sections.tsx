@@ -1,5 +1,4 @@
 import { Link } from "@tanstack/react-router";
-import { motion } from "framer-motion";
 import {
   Search, GraduationCap, Users, Briefcase, ShieldCheck, Sparkles, PlayCircle,
   CheckCircle2, X, Award, ArrowRight, Star, Quote, Bot, Target, Hammer,
@@ -31,71 +30,48 @@ const ICONS: Record<string, any> = {
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden bg-gradient-hero">
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-purple/20 blur-3xl" />
-        <div className="absolute -bottom-24 -left-24 h-96 w-96 rounded-full bg-sky/30 blur-3xl" />
-      </div>
-      <div className="container mx-auto px-4 py-12 md:py-20 grid lg:grid-cols-2 gap-10 items-center">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-          <Badge className="mb-4 bg-purple-soft text-purple border-0">
-            <Sparkles className="h-3 w-3 mr-1" />New: AI Learning Assistant is live
-          </Badge>
-          <h1 className="font-display font-extrabold text-4xl md:text-5xl lg:text-6xl leading-[1.05] tracking-tight">
-            Find the best <span className="text-gradient-primary">tutors</span> and<br />
-            online <span className="text-gradient-primary">courses</span> with TeacherPoint
-          </h1>
-          <p className="mt-5 text-lg text-muted-foreground max-w-xl">
-            12,500+ verified expert tutors. 850K+ students. Live 1-on-1 sessions, lifetime course access, and certificates that get you hired.
+    <section className="relative overflow-hidden border-b bg-gradient-hero">
+      <div className="container mx-auto grid items-center gap-10 px-4 py-12 sm:px-6 md:py-16 lg:grid-cols-2 lg:gap-14 lg:py-20">
+        <div>
+          <p className="mb-4 inline-flex items-center rounded-full border bg-background px-3 py-1 text-sm text-muted-foreground">
+            Trusted by learners in 120+ countries
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Button asChild size="lg" className="bg-gradient-primary"><Link to="/tutors"><Users className="h-4 w-4 mr-2" />Find Tutor</Link></Button>
-            <Button asChild size="lg" variant="outline"><Link to="/courses"><GraduationCap className="h-4 w-4 mr-2" />Browse Courses</Link></Button>
-            <Button asChild size="lg" variant="ghost"><Link to="/role-select"><Briefcase className="h-4 w-4 mr-2" />Become a Teacher</Link></Button>
+          <h1 className="font-display text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl lg:leading-[1.1]">
+            Find expert tutors and courses that fit your goals
+          </h1>
+          <p className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+            Book live sessions with verified teachers, learn at your own pace, and earn certificates you can share with employers.
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Button asChild size="lg" className="h-12 w-full bg-primary sm:w-auto"><Link to="/tutors"><Users className="mr-2 h-4 w-4" />Find a tutor</Link></Button>
+            <Button asChild size="lg" variant="outline" className="h-12 w-full sm:w-auto"><Link to="/courses"><GraduationCap className="mr-2 h-4 w-4" />Browse courses</Link></Button>
           </div>
-          <div className="mt-6 max-w-xl relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input placeholder="Try 'AI courses', 'JEE Math tutor', 'Spoken English'…" className="pl-11 h-12 rounded-full shadow-soft" />
-            <Button size="sm" className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded-full bg-gradient-primary">Search</Button>
-          </div>
-          <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-muted-foreground">
-            <span className="flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-emerald-600" /> Verified tutors</span>
-            <span className="flex items-center gap-1.5"><Award className="h-4 w-4 text-amber-500" /> Industry certificates</span>
-            <span className="flex items-center gap-1.5"><CheckCircle2 className="h-4 w-4 text-sky" /> 7-day refund</span>
-          </div>
-        </motion.div>
-        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7, delay: 0.1 }} className="relative">
-          <div className="relative rounded-3xl overflow-hidden shadow-card aspect-video bg-muted">
-            <video
-              src="/hero-video.mp4"
-              poster={hero}
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="w-full h-full object-cover"
-              aria-label="Students learning with TeacherPoint"
-            />
-          </div>
-          <div className="absolute -bottom-4 -left-4 bg-card border rounded-2xl p-4 shadow-card hidden md:block">
-            <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-full bg-gradient-primary grid place-items-center text-white"><Users className="h-5 w-5" /></div>
-              <div>
-                <div className="font-bold text-sm">850K+ students</div>
-                <div className="text-xs text-muted-foreground">across 120 countries</div>
-              </div>
+          <form className="mt-8 flex max-w-xl flex-col gap-2 sm:flex-row" onSubmit={(e) => e.preventDefault()}>
+            <div className="relative min-w-0 flex-1">
+              <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <Input placeholder="e.g. Python tutor, NEET math" className="h-12 rounded-lg pl-10" aria-label="Search" />
             </div>
+            <Button type="submit" size="lg" className="h-12 shrink-0 bg-primary px-8">Search</Button>
+          </form>
+          <ul className="mt-6 flex flex-col gap-2 text-sm text-muted-foreground sm:flex-row sm:flex-wrap sm:gap-x-6">
+            <li className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-emerald-600" />Background-checked tutors</li>
+            <li className="flex items-center gap-2"><Award className="h-4 w-4 text-amber-600" />Shareable certificates</li>
+            <li className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-primary" />7-day refund on courses</li>
+          </ul>
+        </div>
+        <div className="relative">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border bg-muted shadow-soft sm:aspect-video">
+            <img src={hero} alt="Students learning online" className="h-full w-full object-cover" />
           </div>
-          <div className="absolute -top-4 -right-4 bg-card border rounded-2xl p-4 shadow-card hidden md:block">
-            <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-full bg-amber-100 grid place-items-center"><Star className="h-5 w-5 fill-amber-500 text-amber-500" /></div>
-              <div>
-                <div className="font-bold text-sm">4.9 average</div>
-                <div className="text-xs text-muted-foreground">from 280K reviews</div>
-              </div>
-            </div>
+          <div className="absolute -bottom-3 left-4 hidden rounded-xl border bg-card p-3 shadow-soft md:block lg:left-6">
+            <p className="text-sm font-semibold">850K+ students</p>
+            <p className="text-xs text-muted-foreground">Learning worldwide</p>
           </div>
-        </motion.div>
+          <div className="absolute -right-2 -top-3 hidden rounded-xl border bg-card p-3 shadow-soft md:block">
+            <p className="flex items-center gap-1 text-sm font-semibold"><Star className="h-4 w-4 fill-amber-500 text-amber-500" />4.9 avg. rating</p>
+            <p className="text-xs text-muted-foreground">From 280K reviews</p>
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -107,7 +83,7 @@ export function TrustStats() {
       <div className="container mx-auto px-4 py-8 grid grid-cols-2 md:grid-cols-4 gap-6">
         {STATS.map((s) => (
           <div key={s.label} className="text-center">
-            <div className="font-display font-extrabold text-2xl md:text-3xl text-gradient-primary">{s.value}</div>
+            <div className="font-display font-extrabold text-2xl md:text-3xl text-primary font-bold">{s.value}</div>
             <div className="text-xs md:text-sm text-muted-foreground mt-1">{s.label}</div>
           </div>
         ))}
@@ -119,21 +95,21 @@ export function TrustStats() {
 export function HowItWorks() {
   return (
     <section className="container mx-auto px-4 py-16 md:py-20">
-      <SectionHeading eyebrow="How it works" title="Start learning in three simple steps" subtitle="From discovering the right tutor to earning a certificate — TeacherPoint makes it effortless." />
+      <SectionHeading eyebrow="How it works" title="Start learning in three simple steps" subtitle="From discovering the right tutor to earning a certificate — TeachersPoints makes it effortless." />
       <div className="grid md:grid-cols-3 gap-6">
         {HOW_IT_WORKS.map((s, i) => {
           const Icon = ICONS[s.icon];
           return (
-            <motion.div key={s.step} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
-              <div className="relative bg-card border rounded-2xl p-6 hover:shadow-card transition h-full">
-                <div className="text-7xl font-display font-extrabold text-primary/10 absolute top-2 right-4">{s.step}</div>
-                <div className="h-12 w-12 rounded-xl bg-gradient-primary text-primary-foreground grid place-items-center mb-4">
+            <div key={s.step}>
+              <div className="relative h-full rounded-xl border bg-card p-6 transition-shadow hover:shadow-md">
+                <div className="absolute right-4 top-2 font-display text-5xl font-bold text-primary/10">{s.step}</div>
+                <div className="mb-4 grid h-11 w-11 place-items-center rounded-lg bg-primary text-primary-foreground">
                   <Icon className="h-6 w-6" />
                 </div>
                 <h3 className="font-display font-bold text-xl mb-2">{s.title}</h3>
                 <p className="text-sm text-muted-foreground">{s.desc}</p>
               </div>
-            </motion.div>
+            </div>
           );
         })}
       </div>
@@ -178,15 +154,14 @@ export function LearnAI() {
   const { courses: COURSES } = useAdminStore();
   return (
     <section className="container mx-auto px-4 py-12 md:py-16">
-      <div className="rounded-3xl overflow-hidden bg-gradient-to-br from-indigo-500 via-purple-500 to-fuchsia-500 text-white p-8 md:p-12 grid md:grid-cols-2 gap-8 items-center relative">
-        <div className="absolute inset-0 opacity-20" style={{ background: "radial-gradient(circle at 80% 20%, white, transparent 50%)" }} />
+      <div className="relative grid gap-8 overflow-hidden rounded-2xl border bg-primary p-8 text-primary-foreground md:grid-cols-2 md:p-12">
         <div className="relative">
-          <Badge className="bg-white/20 border-0 mb-3"><Sparkles className="h-3 w-3 mr-1" />Trending</Badge>
+          <p className="mb-3 text-sm font-medium text-primary-foreground/80">Popular topic</p>
           <h2 className="font-display font-extrabold text-3xl md:text-4xl leading-tight">Learn AI. Build the future.</h2>
           <p className="mt-3 opacity-90 max-w-md">Hands-on courses on ChatGPT, LangChain, RAG, and AI Agents — taught by engineers building production AI.</p>
           <div className="mt-6 flex gap-3">
-            <Button asChild size="lg" className="bg-white text-indigo-700 hover:bg-white/90"><Link to="/courses">Explore AI courses</Link></Button>
-            <Button asChild size="lg" variant="outline" className="border-white/40 text-white hover:bg-white/10"><Link to="/courses">Free intro lesson</Link></Button>
+            <Button asChild size="lg" className="bg-background text-foreground hover:bg-background/90"><Link to="/courses">Explore AI courses</Link></Button>
+            <Button asChild size="lg" variant="outline" className="border-primary-foreground/30 bg-transparent text-primary-foreground hover:bg-primary-foreground/10"><Link to="/courses">Free intro lesson</Link></Button>
           </div>
         </div>
         <div className="relative grid grid-cols-2 gap-3">
@@ -250,7 +225,7 @@ export function IndustryExperts() {
   return (
     <section className="bg-purple-soft/40 dark:bg-purple-soft/20 py-16 md:py-20">
       <div className="container mx-auto px-4">
-        <SectionHeading eyebrow="Industry led" title="Courses created by working professionals" subtitle="Every TeacherPoint course is built and taught by people doing the job today — not yesterday." />
+        <SectionHeading eyebrow="Industry led" title="Courses created by working professionals" subtitle="Every TeachersPoints course is built and taught by people doing the job today — not yesterday." />
         <div className="grid md:grid-cols-3 gap-5">
           {COURSES.slice(2, 5).map((c) => (
             <article key={c.id} className="bg-card border rounded-2xl overflow-hidden hover:shadow-card transition">
@@ -364,7 +339,7 @@ export function Certification() {
         <div>
           <Badge className="mb-3 bg-emerald-100 text-emerald-700 border-0 dark:bg-emerald-900/40 dark:text-emerald-300">Industry recognized</Badge>
           <h2 className="font-display font-extrabold text-3xl md:text-4xl">Certificates that actually open doors.</h2>
-          <p className="mt-4 text-muted-foreground">Add verified TeacherPoint certificates to your LinkedIn and resume. Co-signed by industry partners and endorsed by hiring managers.</p>
+          <p className="mt-4 text-muted-foreground">Add verified TeachersPoints certificates to your LinkedIn and resume. Co-signed by industry partners and endorsed by hiring managers.</p>
           <ul className="mt-6 space-y-2">
             {["Verified blockchain credential", "LinkedIn-ready", "Shareable & permanent", "Co-branded with partners"].map((f) => (
               <li key={f} className="flex items-center gap-2 text-sm"><CheckCircle2 className="h-4 w-4 text-emerald-600" />{f}</li>
@@ -396,11 +371,11 @@ export function Comparison() {
   return (
     <section className="bg-muted/30 py-16 md:py-20">
       <div className="container mx-auto px-4">
-        <SectionHeading eyebrow="Why TeacherPoint" title="See how we stack up" subtitle="A quick look at what makes TeacherPoint different from typical platforms." />
+        <SectionHeading eyebrow="Why TeachersPoints" title="See how we stack up" subtitle="A quick look at what makes TeachersPoints different from typical platforms." />
         <div className="bg-card border rounded-2xl overflow-hidden max-w-3xl mx-auto">
           <div className="grid grid-cols-3 bg-muted/40 px-6 py-4 text-sm font-semibold">
             <div>Feature</div>
-            <div className="text-center text-primary">TeacherPoint</div>
+            <div className="text-center text-primary">TeachersPoints</div>
             <div className="text-center text-muted-foreground">Others</div>
           </div>
           {COMPARISON.map((row, i) => (

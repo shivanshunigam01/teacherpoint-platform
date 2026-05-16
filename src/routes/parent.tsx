@@ -4,7 +4,7 @@ import { DashboardShell, StatCard } from "@/components/dashboard/Shell";
 import { TUTORS, COURSES } from "@/data/mock";
 import { Progress } from "@/components/ui/progress";
 
-export const Route = createFileRoute("/parent")({ component: Parent, head: () => ({ meta: [{ title: "Parent Dashboard · TeacherPoint" }, { name: "robots", content: "noindex" }] }) });
+export const Route = createFileRoute("/parent")({ component: Parent, head: () => ({ meta: [{ title: "Parent Dashboard · TeachersPoints" }, { name: "robots", content: "noindex" }] }) });
 
 const ITEMS = [
   { to: "/parent", label: "Overview", icon: LayoutDashboard },

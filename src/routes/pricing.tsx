@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { PAYMENT_PLANS } from "@/data/mock";
 
-export const Route = createFileRoute("/pricing")({ component: Pricing, head: () => ({ meta: [{ title: "Pricing · TeacherPoint" }, { name: "description", content: "Free, Pro and Premium plans for every learner." }], links: [{ rel: "canonical", href: "/pricing" }] }) });
+export const Route = createFileRoute("/pricing")({ component: Pricing, head: () => ({ meta: [{ title: "Pricing · TeachersPoints" }, { name: "description", content: "Free, Pro and Premium plans for every learner." }], links: [{ rel: "canonical", href: "/pricing" }] }) });
 
 function Pricing() {
   return (

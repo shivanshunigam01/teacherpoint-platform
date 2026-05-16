@@ -6,7 +6,7 @@ import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
-export const Route = createFileRoute("/student")({ component: Student, head: () => ({ meta: [{ title: "Student Dashboard · TeacherPoint" }, { name: "robots", content: "noindex" }] }) });
+export const Route = createFileRoute("/student")({ component: Student, head: () => ({ meta: [{ title: "Student Dashboard · TeachersPoints" }, { name: "robots", content: "noindex" }] }) });
 
 const ITEMS = [
   { to: "/student", label: "Overview", icon: LayoutDashboard },

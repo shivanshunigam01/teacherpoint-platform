@@ -15,7 +15,7 @@ export const Route = createFileRoute("/tutors/$id")({
   component: TutorDetail,
   head: ({ loaderData }) => ({
     meta: [
-      { title: `${loaderData?.name || "Tutor"} · ${loaderData?.subject || ""} · TeacherPoint` },
+      { title: `${loaderData?.name || "Tutor"} · ${loaderData?.subject || ""} · TeachersPoints` },
       { name: "description", content: loaderData?.bio || "" },
     ],
   }),

@@ -8,7 +8,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { SUPPORT_TICKETS } from "@/data/mock";
 import { toast } from "sonner";
 
-export const Route = createFileRoute("/support")({ component: Support, head: () => ({ meta: [{ title: "Support · TeacherPoint" }] }) });
+export const Route = createFileRoute("/support")({ component: Support, head: () => ({ meta: [{ title: "Support · TeachersPoints" }] }) });
 
 function Support() {
   return (
