@@ -11,6 +11,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
+  SidebarInset,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
@@ -45,60 +46,54 @@ export function DashboardShell({
   };
 
   return (
-    <SidebarProvider>
-      <div className="flex min-h-screen w-full flex-col">
-        <header className="sticky top-0 z-50 flex h-14 shrink-0 items-center gap-3 border-b bg-background/95 px-4 backdrop-blur-md supports-[backdrop-filter]:bg-background/80">
-          <SidebarTrigger className="lg:hidden" />
-          <Link to={`/${role}` as "/"} className="flex shrink-0 items-center" aria-label="Dashboard home">
-            <BrandLogo size="header" />
-          </Link>
-          <span className="hidden text-sm font-semibold sm:inline">{title}</span>
-          <div className="ms-auto flex items-center gap-1">
-            <Button variant="ghost" size="icon" aria-label={t("nav.toggleTheme")} onClick={toggleTheme}>
-              {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-            </Button>
-            <LanguageSwitcher />
-            {user && (
-              <span className="hidden max-w-[8rem] truncate text-sm text-muted-foreground md:inline">{user.name}</span>
-            )}
-            <Button variant="ghost" size="sm" className="gap-1.5" onClick={handleLogout}>
-              <LogOut className="h-4 w-4" />
-              <span className="hidden sm:inline">{t("nav.logout")}</span>
-            </Button>
-          </div>
-        </header>
-
-        <div className="flex min-h-0 flex-1">
-          <Sidebar collapsible="icon">
-            <SidebarContent>
-              <SidebarGroup className="pt-2">
-                <SidebarGroupLabel className="capitalize">{role} menu</SidebarGroupLabel>
-                <SidebarGroupContent>
-                  <SidebarMenu>
-                    {items.map((i) => (
-                      <SidebarMenuItem key={i.to}>
-                        <SidebarMenuButton asChild isActive={path === i.to}>
-                          <Link to={i.to as any}>
-                            <i.icon className="h-4 w-4" />
-                            <span>{i.label}</span>
-                          </Link>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
-                    ))}
-                  </SidebarMenu>
-                </SidebarGroupContent>
-              </SidebarGroup>
-            </SidebarContent>
-          </Sidebar>
-
-          <div className="flex min-w-0 flex-1 flex-col">
-            <div className="flex h-11 items-center gap-3 border-b bg-background px-4">
-              <SidebarTrigger className="hidden lg:flex" />
-              <div className="text-sm font-semibold">{title}</div>
-            </div>
-            <div className="flex-1 overflow-auto bg-muted/20 p-4 md:p-6">{children}</div>
-          </div>
+    <SidebarProvider className="flex min-h-[100dvh] w-full flex-col">
+      <header className="z-50 flex h-16 shrink-0 items-center gap-3 border-b bg-background px-4">
+        <SidebarTrigger className="shrink-0" />
+        <Link to={`/${role}` as "/"} className="flex shrink-0 items-center" aria-label="Dashboard home">
+          <BrandLogo size="header" />
+        </Link>
+        <span className="hidden text-sm font-semibold sm:inline">{title}</span>
+        <div className="ms-auto flex items-center gap-1">
+          <Button variant="ghost" size="icon" aria-label={t("nav.toggleTheme")} onClick={toggleTheme}>
+            {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          </Button>
+          <LanguageSwitcher />
+          {user && (
+            <span className="hidden max-w-[8rem] truncate text-sm text-muted-foreground md:inline">{user.name}</span>
+          )}
+          <Button variant="ghost" size="sm" className="gap-1.5" onClick={handleLogout}>
+            <LogOut className="h-4 w-4" />
+            <span className="hidden sm:inline">{t("nav.logout")}</span>
+          </Button>
         </div>
+      </header>
+
+      <div className="flex min-h-0 flex-1">
+        <Sidebar collapsible="icon" className="!top-16 !bottom-0 !h-[calc(100dvh-4rem)]">
+          <SidebarContent className="py-3">
+            <SidebarGroup>
+              <SidebarGroupLabel className="capitalize">{role} menu</SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  {items.map((i) => (
+                    <SidebarMenuItem key={i.to}>
+                      <SidebarMenuButton asChild isActive={path === i.to}>
+                        <Link to={i.to as any}>
+                          <i.icon className="h-4 w-4" />
+                          <span>{i.label}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          </SidebarContent>
+        </Sidebar>
+
+        <SidebarInset className="min-h-0 min-w-0 flex-1 overflow-hidden">
+          <div className="h-full overflow-y-auto bg-muted/20 p-4 md:p-6">{children}</div>
+        </SidebarInset>
       </div>
     </SidebarProvider>
   );
@@ -120,4 +115,3 @@ export function StatCard({ label, value, change, icon: Icon, color = "from-sky-4
     </div>
   );
 }
-
