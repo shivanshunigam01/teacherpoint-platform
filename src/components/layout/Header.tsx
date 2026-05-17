@@ -1,9 +1,11 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Search, Moon, Sun, Globe, Menu, X, Bell, ChevronDown } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { Search, Moon, Sun, Menu, X, Bell, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useApp } from "@/hooks/use-app";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { BrandLogo } from "@/components/BrandLogo";
 import { CATEGORIES } from "@/data/mock";
 import {
@@ -15,17 +17,23 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 
-const NAV = [
-  { to: "/courses", label: "Courses" },
-  { to: "/tutors", label: "Tutors" },
-  { to: "/lms", label: "LMS" },
-  { to: "/marketplace", label: "Marketplace" },
-];
+const NAV_PATHS = [
+  { to: "/courses", key: "nav.courses" },
+  { to: "/tutors", key: "nav.tutors" },
+  { to: "/marketplace", key: "nav.marketplace" },
+] as const;
 
 export function Header() {
-  const { theme, toggleTheme, lang, setLang, role, user, logout } = useApp();
+  const { theme, toggleTheme, role, user, logout } = useApp();
+  const { t } = useTranslation("common");
   const [mobileOpen, setMobileOpen] = useState(false);
   const path = useRouterState({ select: (s) => s.location.pathname });
+
+  const tc = (categoryName: string) => {
+    const key = `category.${categoryName}`;
+    const translated = t(key);
+    return translated === key ? categoryName : translated;
+  };
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
@@ -34,19 +42,12 @@ export function Header() {
     };
   }, [mobileOpen]);
 
-  const navLinkClass = (to: string) =>
-    `block rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
-      path === to || (to !== "/" && path.startsWith(to))
-        ? "bg-primary/10 text-primary"
-        : "text-foreground hover:bg-muted"
-    }`;
-
   return (
     <>
       <div className="border-b bg-muted/50 text-center text-xs sm:text-sm text-muted-foreground py-2 px-4">
-        Spring sale on select courses —{" "}
+        {t("promo.sale")}{" "}
         <Link to="/courses" className="font-medium text-primary underline-offset-2 hover:underline">
-          Browse deals
+          {t("promo.browse")}
         </Link>
       </div>
 
@@ -57,11 +58,11 @@ export function Header() {
           </Link>
 
           <div className="relative hidden min-w-0 flex-1 md:block md:max-w-md lg:max-w-xl">
-            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Search className="pointer-events-none absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
-              placeholder="Search courses or tutors…"
-              className="h-10 rounded-lg border-border/80 bg-muted/50 pl-10"
-              aria-label="Search"
+              placeholder={t("nav.search")}
+              className="h-10 rounded-lg border-border/80 bg-muted/50 ps-10"
+              aria-label={t("nav.search")}
             />
           </div>
 
@@ -69,22 +70,22 @@ export function Header() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="sm" className="gap-1 font-medium">
-                  Categories <ChevronDown className="h-4 w-4 opacity-60" />
+                  {t("nav.categories")} <ChevronDown className="h-4 w-4 opacity-60" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start" className="w-52">
-                <DropdownMenuLabel>Browse by topic</DropdownMenuLabel>
+                <DropdownMenuLabel>{t("nav.browseTopics")}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 {CATEGORIES.slice(1).map((c) => (
                   <DropdownMenuItem key={c.id} asChild>
                     <Link to="/courses" search={{ category: c.name } as any}>
-                      {c.name}
+                      {tc(c.name)}
                     </Link>
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
-            {NAV.map((n) => (
+            {NAV_PATHS.map((n) => (
               <Link
                 key={n.to}
                 to={n.to}
@@ -92,7 +93,7 @@ export function Header() {
                   path.startsWith(n.to) ? "text-primary" : "text-muted-foreground hover:text-foreground"
                 }`}
               >
-                {n.label}
+                {t(n.key)}
               </Link>
             ))}
             <Link
@@ -101,28 +102,18 @@ export function Header() {
                 path.startsWith("/post-requirement") ? "text-primary" : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              Post a job
+              {t("nav.postJob")}
             </Link>
           </nav>
 
-          <div className="ml-auto flex items-center gap-1 sm:gap-1.5">
-            <Button variant="ghost" size="icon" className="shrink-0" aria-label="Toggle theme" onClick={toggleTheme}>
+          <div className="ms-auto flex items-center gap-1 sm:gap-1.5">
+            <Button variant="ghost" size="icon" className="shrink-0" aria-label={t("nav.toggleTheme")} onClick={toggleTheme}>
               {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
             </Button>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="hidden shrink-0 sm:flex" aria-label="Language">
-                  <Globe className="h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => setLang("en")}>{lang === "en" ? "✓ " : ""}English</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setLang("hi")}>{lang === "hi" ? "✓ " : ""}हिंदी</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-            <Button variant="ghost" size="icon" className="relative hidden shrink-0 md:flex" aria-label="Notifications">
+            <LanguageSwitcher />
+            <Button variant="ghost" size="icon" className="relative hidden shrink-0 md:flex" aria-label={t("nav.notifications")}>
               <Bell className="h-4 w-4" />
-              <span className="absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-destructive" />
+              <span className="absolute end-2 top-2 h-1.5 w-1.5 rounded-full bg-destructive" />
             </Button>
 
             {role && user ? (
@@ -139,25 +130,25 @@ export function Header() {
                   <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
-                    <Link to={`/${role}` as any}>Dashboard</Link>
+                    <Link to={`/${role}` as any}>{t("nav.dashboard")}</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link to="/messages">Messages</Link>
+                    <Link to="/messages">{t("nav.messages")}</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link to="/support">Support</Link>
+                    <Link to="/support">{t("nav.support")}</Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={logout}>Log out</DropdownMenuItem>
+                  <DropdownMenuItem onClick={logout}>{t("nav.logout")}</DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
               <>
                 <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
-                  <Link to="/login">Log in</Link>
+                  <Link to="/login">{t("nav.login")}</Link>
                 </Button>
                 <Button asChild size="sm" className="hidden bg-primary sm:inline-flex">
-                  <Link to="/role-select">Sign up</Link>
+                  <Link to="/role-select">{t("nav.signup")}</Link>
                 </Button>
               </>
             )}
@@ -166,7 +157,7 @@ export function Header() {
               variant="outline"
               size="icon"
               className="shrink-0 lg:hidden"
-              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+              aria-label={mobileOpen ? t("nav.closeMenu") : t("nav.openMenu")}
               aria-expanded={mobileOpen}
               onClick={() => setMobileOpen((o) => !o)}
             >
@@ -177,22 +168,31 @@ export function Header() {
 
         {mobileOpen && (
           <div className="xl:hidden border-t bg-background">
-            <div className="container mx-auto px-4 py-4 space-y-1">
-              <div className="md:hidden relative mb-3">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input placeholder="Search…" className="pl-10 rounded-full bg-muted/40" />
+            <div className="container mx-auto space-y-1 px-4 py-4">
+              <div className="relative mb-3 md:hidden">
+                <Search className="absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                <Input placeholder={t("nav.searchShort")} className="rounded-full bg-muted/40 ps-10" />
               </div>
-              {NAV.map((n) => (
-                <Link key={n.to} to={n.to} onClick={() => setMobileOpen(false)} className="block px-3 py-2 rounded-md hover:bg-accent">
-                  {n.label}
+              {NAV_PATHS.map((n) => (
+                <Link key={n.to} to={n.to} onClick={() => setMobileOpen(false)} className="block rounded-md px-3 py-2 hover:bg-accent">
+                  {t(n.key)}
                 </Link>
               ))}
+              <Link
+                to="/post-requirement"
+                onClick={() => setMobileOpen(false)}
+                className="block rounded-md px-3 py-2 hover:bg-accent"
+              >
+                {t("nav.postJob")}
+              </Link>
               {!role && (
-                <Link to="/login" onClick={() => setMobileOpen(false)} className="block px-3 py-2 rounded-md hover:bg-accent">Log in</Link>
+                <Link to="/login" onClick={() => setMobileOpen(false)} className="block rounded-md px-3 py-2 hover:bg-accent">
+                  {t("nav.login")}
+                </Link>
               )}
             </div>
           </div>
-              )}
+        )}
       </header>
     </>
   );

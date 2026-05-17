@@ -1,18 +1,20 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { Home, BookOpen, Users, MessageCircle, User } from "lucide-react";
 import { useApp } from "@/hooks/use-app";
-
-const ITEMS = [
-  { to: "/", label: "Home", icon: Home },
-  { to: "/courses", label: "Courses", icon: BookOpen },
-  { to: "/tutors", label: "Tutors", icon: Users },
-  { to: "/messages", label: "Messages", icon: MessageCircle },
-] as const;
+import { useTranslation } from "react-i18next";
 
 export function MobileNav() {
   const path = useRouterState({ select: (s) => s.location.pathname });
   const { role } = useApp();
+  const { t } = useTranslation("common");
   const profileTo = role ? (`/${role}` as const) : "/login";
+
+  const items = [
+    { to: "/", label: t("nav.home"), icon: Home },
+    { to: "/courses", label: t("nav.courses"), icon: BookOpen },
+    { to: "/tutors", label: t("nav.tutors"), icon: Users },
+    { to: "/messages", label: t("nav.messages"), icon: MessageCircle },
+  ] as const;
 
   const isDashboard =
     path.startsWith("/admin") ||
@@ -29,7 +31,7 @@ export function MobileNav() {
       aria-label="Mobile navigation"
     >
       <div className="grid grid-cols-5">
-        {ITEMS.map((i) => {
+        {items.map((i) => {
           const active = path === i.to || (i.to !== "/" && path.startsWith(i.to));
           return (
             <Link
@@ -53,7 +55,7 @@ export function MobileNav() {
           }`}
         >
           <User className="h-5 w-5" />
-          <span>{role ? "Account" : "Log in"}</span>
+          <span>{role ? t("nav.account") : t("nav.login")}</span>
         </Link>
       </div>
     </nav>

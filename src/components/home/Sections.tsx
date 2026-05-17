@@ -18,6 +18,7 @@ import {
   COMPANIES, STATS, HOW_IT_WORKS, LEARNING_TIMELINE, COMPARISON,
 } from "@/data/mock";
 import { useAdminStore } from "@/hooks/use-admin-store";
+import { useTranslation } from "react-i18next";
 import hero from "@/assets/hero-illustration.jpg";
 import careerBanner from "@/assets/career-banner.jpg";
 import { courseImage, tutorImage } from "@/data/images";
@@ -29,34 +30,35 @@ const ICONS: Record<string, any> = {
 };
 
 export function Hero() {
+  const { t } = useTranslation("common");
   return (
     <section className="relative overflow-hidden border-b bg-gradient-hero">
       <div className="container mx-auto grid items-center gap-10 px-4 py-12 sm:px-6 md:py-16 lg:grid-cols-2 lg:gap-14 lg:py-20">
         <div>
           <p className="mb-4 inline-flex items-center rounded-full border bg-background px-3 py-1 text-sm text-muted-foreground">
-            Trusted by learners in 120+ countries
+            {t("hero.badge")}
           </p>
           <h1 className="font-display text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl lg:leading-[1.1]">
-            Find expert tutors and courses that fit your goals
+            {t("hero.title")}
           </h1>
           <p className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Book live sessions with verified teachers, learn at your own pace, and earn certificates you can share with employers.
+            {t("hero.subtitle")}
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button asChild size="lg" className="h-12 w-full bg-primary sm:w-auto"><Link to="/tutors"><Users className="mr-2 h-4 w-4" />Find a tutor</Link></Button>
-            <Button asChild size="lg" variant="outline" className="h-12 w-full sm:w-auto"><Link to="/courses"><GraduationCap className="mr-2 h-4 w-4" />Browse courses</Link></Button>
+            <Button asChild size="lg" className="h-12 w-full bg-primary sm:w-auto"><Link to="/tutors"><Users className="h-4 w-4 me-2" />{t("hero.findTutor")}</Link></Button>
+            <Button asChild size="lg" variant="outline" className="h-12 w-full sm:w-auto"><Link to="/courses"><GraduationCap className="h-4 w-4 me-2" />{t("hero.browseCourses")}</Link></Button>
           </div>
           <form className="mt-8 flex max-w-xl flex-col gap-2 sm:flex-row" onSubmit={(e) => e.preventDefault()}>
             <div className="relative min-w-0 flex-1">
-              <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-              <Input placeholder="e.g. Python tutor, NEET math" className="h-12 rounded-lg pl-10" aria-label="Search" />
+              <Search className="pointer-events-none absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <Input placeholder={t("hero.searchPlaceholder")} className="h-12 rounded-lg ps-10" aria-label={t("hero.search")} />
             </div>
-            <Button type="submit" size="lg" className="h-12 shrink-0 bg-primary px-8">Search</Button>
+            <Button type="submit" size="lg" className="h-12 shrink-0 bg-primary px-8">{t("hero.search")}</Button>
           </form>
           <ul className="mt-6 flex flex-col gap-2 text-sm text-muted-foreground sm:flex-row sm:flex-wrap sm:gap-x-6">
-            <li className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-emerald-600" />Background-checked tutors</li>
-            <li className="flex items-center gap-2"><Award className="h-4 w-4 text-amber-600" />Shareable certificates</li>
-            <li className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-primary" />7-day refund on courses</li>
+            <li className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-emerald-600" />{t("hero.trust.tutors")}</li>
+            <li className="flex items-center gap-2"><Award className="h-4 w-4 text-amber-600" />{t("hero.trust.certs")}</li>
+            <li className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-primary" />{t("hero.trust.refund")}</li>
           </ul>
         </div>
         <div className="relative">
@@ -64,12 +66,12 @@ export function Hero() {
             <img src={hero} alt="Students learning online" className="h-full w-full object-cover" />
           </div>
           <div className="absolute -bottom-3 left-4 hidden rounded-xl border bg-card p-3 shadow-soft md:block lg:left-6">
-            <p className="text-sm font-semibold">850K+ students</p>
-            <p className="text-xs text-muted-foreground">Learning worldwide</p>
+            <p className="text-sm font-semibold">{t("hero.card.students")}</p>
+            <p className="text-xs text-muted-foreground">{t("hero.card.worldwide")}</p>
           </div>
           <div className="absolute -right-2 -top-3 hidden rounded-xl border bg-card p-3 shadow-soft md:block">
-            <p className="flex items-center gap-1 text-sm font-semibold"><Star className="h-4 w-4 fill-amber-500 text-amber-500" />4.9 avg. rating</p>
-            <p className="text-xs text-muted-foreground">From 280K reviews</p>
+            <p className="flex items-center gap-1 text-sm font-semibold"><Star className="h-4 w-4 fill-amber-500 text-amber-500" />{t("hero.card.rating")}</p>
+            <p className="text-xs text-muted-foreground">{t("hero.card.reviews")}</p>
           </div>
         </div>
       </div>
@@ -77,14 +79,17 @@ export function Hero() {
   );
 }
 
+const STAT_KEYS = ["stats.tutors", "stats.students", "stats.rating", "stats.countries"] as const;
+
 export function TrustStats() {
+  const { t } = useTranslation("common");
   return (
     <section className="border-y bg-muted/30">
       <div className="container mx-auto px-4 py-8 grid grid-cols-2 md:grid-cols-4 gap-6">
-        {STATS.map((s) => (
+        {STATS.map((s, i) => (
           <div key={s.label} className="text-center">
             <div className="font-display font-extrabold text-2xl md:text-3xl text-primary font-bold">{s.value}</div>
-            <div className="text-xs md:text-sm text-muted-foreground mt-1">{s.label}</div>
+            <div className="text-xs md:text-sm text-muted-foreground mt-1">{t(STAT_KEYS[i])}</div>
           </div>
         ))}
       </div>
@@ -93,9 +98,10 @@ export function TrustStats() {
 }
 
 export function HowItWorks() {
+  const { t } = useTranslation("common");
   return (
     <section className="container mx-auto px-4 py-16 md:py-20">
-      <SectionHeading eyebrow="How it works" title="Start learning in three simple steps" subtitle="From discovering the right tutor to earning a certificate — TeachersPoints makes it effortless." />
+      <SectionHeading eyebrow={t("how.eyebrow")} title={t("how.title")} subtitle={t("how.subtitle")} />
       <div className="grid md:grid-cols-3 gap-6">
         {HOW_IT_WORKS.map((s, i) => {
           const Icon = ICONS[s.icon];
@@ -106,8 +112,8 @@ export function HowItWorks() {
                 <div className="mb-4 grid h-11 w-11 place-items-center rounded-lg bg-primary text-primary-foreground">
                   <Icon className="h-6 w-6" />
                 </div>
-                <h3 className="font-display font-bold text-xl mb-2">{s.title}</h3>
-                <p className="text-sm text-muted-foreground">{s.desc}</p>
+                <h3 className="font-display font-bold text-xl mb-2">{t(`how.step${i + 1}.title` as "how.step1.title")}</h3>
+                <p className="text-sm text-muted-foreground">{t(`how.step${i + 1}.desc` as "how.step1.desc")}</p>
               </div>
             </div>
           );
@@ -182,13 +188,14 @@ export function LearnAI() {
 
 export function FeaturedTutors() {
   const { tutors: TUTORS } = useAdminStore();
+  const { t } = useTranslation("common");
   return (
     <section className="container mx-auto px-4 py-12 md:py-16">
       <SectionHeading
-        eyebrow="Featured"
-        title="Meet the teachers students rave about"
-        subtitle="Verified, top-rated tutors across subjects, languages, and timezones."
-        action={<Button asChild variant="ghost" className="hidden md:inline-flex"><Link to="/tutors">All tutors <ArrowRight className="h-4 w-4 ml-1" /></Link></Button>}
+        eyebrow={t("featured.eyebrow")}
+        title={t("featured.title")}
+        subtitle={t("featured.subtitle")}
+        action={<Button asChild variant="ghost" className="hidden md:inline-flex"><Link to="/tutors">{t("featured.allTutors")} <ArrowRight className="h-4 w-4 ml-1" /></Link></Button>}
       />
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {TUTORS.slice(0, 8).map((t) => <TutorCard key={t.id} tutor={t} />)}
@@ -465,14 +472,15 @@ export function FAQSection() {
 }
 
 export function CTABand() {
+  const { t } = useTranslation("common");
   return (
     <section className="container mx-auto px-4 py-12">
       <div className="rounded-3xl bg-gradient-primary text-primary-foreground p-10 md:p-16 text-center">
-        <h2 className="font-display font-extrabold text-3xl md:text-4xl">Start your learning journey today</h2>
-        <p className="mt-3 opacity-90 max-w-xl mx-auto">Join 850K+ learners worldwide. Your first session is free.</p>
+        <h2 className="font-display font-extrabold text-3xl md:text-4xl">{t("cta.title")}</h2>
+        <p className="mt-3 opacity-90 max-w-xl mx-auto">{t("cta.subtitle")}</p>
         <div className="mt-6 flex flex-wrap justify-center gap-3">
-          <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90"><Link to="/role-select">Get started — free</Link></Button>
-          <Button asChild size="lg" variant="outline" className="border-white/40 text-white hover:bg-white/10"><Link to="/courses">Explore courses</Link></Button>
+          <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90"><Link to="/role-select">{t("cta.getStarted")}</Link></Button>
+          <Button asChild size="lg" variant="outline" className="border-white/40 bg-transparent text-white shadow-none hover:bg-white/10 hover:text-white"><Link to="/courses">{t("cta.exploreCourses")}</Link></Button>
         </div>
       </div>
     </section>

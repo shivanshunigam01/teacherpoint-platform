@@ -3,38 +3,7 @@ import { Facebook, Twitter, Instagram, Linkedin, Youtube, Mail } from "lucide-re
 import { BrandLogo } from "@/components/BrandLogo";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-
-const COLS = [
-  {
-    title: "Learn",
-    links: [
-      { to: "/courses", label: "All Courses" },
-      { to: "/tutors", label: "Find a Tutor" },
-      { to: "/lms", label: "LMS Dashboard" },
-      { to: "/marketplace", label: "Marketplace" },
-      { to: "/pricing", label: "Plans & Pricing" },
-    ],
-  },
-  {
-    title: "TeachersPoints",
-    links: [
-      { to: "/about", label: "About" },
-      { to: "/contact", label: "Contact" },
-      { to: "/faq", label: "FAQ" },
-      { to: "/post-requirement", label: "Post a Requirement" },
-      { to: "/role-select", label: "Become a Teacher" },
-    ],
-  },
-  {
-    title: "Support",
-    links: [
-      { to: "/support", label: "Help Center" },
-      { to: "/reviews", label: "Reviews" },
-      { to: "/messages", label: "Messages" },
-      { to: "/contact", label: "Report Issue" },
-    ],
-  },
-];
+import { useTranslation } from "react-i18next";
 
 const POPULAR_SKILLS = [
   "Python", "Excel", "ChatGPT", "Data Science", "PMP", "Spoken English",
@@ -43,12 +12,44 @@ const POPULAR_SKILLS = [
 ];
 
 export function Footer() {
+  const { t } = useTranslation("common");
+
+  const cols = [
+    {
+      title: t("footer.learn"),
+      links: [
+        { to: "/courses", label: t("footer.allCourses") },
+        { to: "/tutors", label: t("footer.findTutor") },
+        { to: "/marketplace", label: t("footer.marketplace") },
+        { to: "/pricing", label: t("footer.pricing") },
+      ],
+    },
+    {
+      title: t("footer.brand"),
+      links: [
+        { to: "/about", label: t("footer.about") },
+        { to: "/contact", label: t("footer.contact") },
+        { to: "/faq", label: t("footer.faq") },
+        { to: "/post-requirement", label: t("footer.postRequirement") },
+        { to: "/role-select", label: t("footer.becomeTeacher") },
+      ],
+    },
+    {
+      title: t("footer.supportTitle"),
+      links: [
+        { to: "/support", label: t("footer.helpCenter") },
+        { to: "/reviews", label: t("footer.reviews") },
+        { to: "/messages", label: t("nav.messages") },
+        { to: "/contact", label: t("footer.reportIssue") },
+      ],
+    },
+  ];
+
   return (
     <footer className="mt-16 bg-[#0b1220] text-slate-300">
       <div className="container mx-auto px-4 py-12 sm:px-6 sm:py-16">
-        {/* Popular skills */}
         <div className="mb-12">
-          <h3 className="text-white font-display text-lg mb-4">Popular skills students are learning</h3>
+          <h3 className="text-white font-display text-lg mb-4">{t("footer.popularSkills")}</h3>
           <div className="flex flex-wrap gap-2">
             {POPULAR_SKILLS.map((s) => (
               <Link key={s} to="/courses" className="text-xs px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 transition">
@@ -63,9 +64,7 @@ export function Footer() {
             <div className="mb-4">
               <BrandLogo size="footer" />
             </div>
-            <p className="text-sm text-slate-400 max-w-sm mb-4">
-              The trusted edtech marketplace connecting students, parents, and the world's best tutors.
-            </p>
+            <p className="text-sm text-slate-400 max-w-sm mb-4">{t("footer.tagline")}</p>
             <div className="flex items-center gap-3 text-slate-400">
               <a href="#" aria-label="Facebook" className="hover:text-white"><Facebook className="h-4 w-4" /></a>
               <a href="#" aria-label="Twitter" className="hover:text-white"><Twitter className="h-4 w-4" /></a>
@@ -75,7 +74,7 @@ export function Footer() {
             </div>
           </div>
 
-          {COLS.map((c) => (
+          {cols.map((c) => (
             <div key={c.title}>
               <h4 className="text-white font-semibold mb-4 text-sm">{c.title}</h4>
               <ul className="space-y-2">
@@ -93,25 +92,30 @@ export function Footer() {
 
         <div className="mt-12 pt-8 border-t border-white/10 grid md:grid-cols-2 gap-6 items-center">
           <div>
-            <h4 className="text-white font-semibold mb-2">Get learning tips in your inbox</h4>
-            <p className="text-sm text-slate-400">Weekly tutor picks, course discounts, and study guides.</p>
+            <h4 className="text-white font-semibold mb-2">{t("footer.newsletterTitle")}</h4>
+            <p className="text-sm text-slate-400">{t("footer.newsletterDesc")}</p>
           </div>
           <form className="flex gap-2" onSubmit={(e) => e.preventDefault()}>
             <div className="relative flex-1">
-              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
-              <Input type="email" placeholder="you@email.com" required className="pl-10 bg-white/5 border-white/10 text-white placeholder:text-slate-500" />
+              <Mail className="absolute start-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
+              <Input
+                type="email"
+                placeholder={t("footer.emailPlaceholder")}
+                required
+                className="ps-10 bg-white/5 border-white/10 text-white placeholder:text-slate-500"
+              />
             </div>
-            <Button type="submit" className="bg-gradient-primary">Subscribe</Button>
+            <Button type="submit" className="bg-gradient-primary">{t("footer.subscribe")}</Button>
           </form>
         </div>
 
         <div className="mt-8 pt-6 border-t border-white/10 flex flex-col md:flex-row gap-4 items-center justify-between text-xs text-slate-500">
-          <p>© 2026 TeachersPoints. All rights reserved.</p>
+          <p>{t("footer.copyright")}</p>
           <div className="flex gap-4">
-            <a href="#">Privacy</a>
-            <a href="#">Terms</a>
-            <a href="#">Cookie Settings</a>
-            <a href="#">Sitemap</a>
+            <a href="#">{t("footer.privacy")}</a>
+            <a href="#">{t("footer.terms")}</a>
+            <a href="#">{t("footer.cookies")}</a>
+            <a href="#">{t("footer.sitemap")}</a>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { LayoutDashboard, Users, BookOpen, Package, DollarSign, Plus, Pencil, Trash2, Settings, BarChart3 } from "lucide-react";
+import { LayoutDashboard, Users, BookOpen, Package, DollarSign, Plus, Pencil, Trash2, Settings, BarChart3, Megaphone } from "lucide-react";
 import { DashboardShell, StatCard } from "@/components/dashboard/Shell";
 import { useAdminStore } from "@/hooks/use-admin-store";
 import { Button } from "@/components/ui/button";
@@ -17,7 +17,8 @@ import { courseImage, tutorImage } from "@/data/images";
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip } from "recharts";
 import { toast } from "sonner";
 import type { Course, Tutor } from "@/data/mock";
-import type { Combo } from "@/hooks/use-admin-store";
+import type { Combo, RegionalAd, RegionalAdTarget } from "@/hooks/use-admin-store";
+import { Switch } from "@/components/ui/switch";
 
 export const Route = createFileRoute("/admin")({
   component: Admin,
@@ -45,10 +46,11 @@ function Admin() {
         </Button>
       </div>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-6">
         <StatCard label="Courses" value={String(store.courses.length)} icon={BookOpen} />
         <StatCard label="Teachers" value={String(store.tutors.length)} icon={Users} color="from-purple-400 to-fuchsia-600" />
         <StatCard label="Packages" value={String(store.combos.length)} icon={Package} color="from-emerald-400 to-teal-600" />
+        <StatCard label="Regional ads" value={String(store.regionalAds.filter((a) => a.active).length)} icon={Megaphone} color="from-rose-400 to-pink-600" />
         <StatCard label="Revenue (MTD)" value="$184K" change="+18%" icon={DollarSign} color="from-amber-400 to-orange-500" />
       </div>
 
@@ -57,12 +59,14 @@ function Admin() {
           <TabsTrigger value="courses">Courses</TabsTrigger>
           <TabsTrigger value="teachers">Teachers</TabsTrigger>
           <TabsTrigger value="packages">Packages</TabsTrigger>
+          <TabsTrigger value="ads">Regional ads</TabsTrigger>
           <TabsTrigger value="revenue">Revenue</TabsTrigger>
         </TabsList>
 
         <TabsContent value="courses"><CoursesPanel /></TabsContent>
         <TabsContent value="teachers"><TeachersPanel /></TabsContent>
         <TabsContent value="packages"><PackagesPanel /></TabsContent>
+        <TabsContent value="ads"><RegionalAdsPanel /></TabsContent>
         <TabsContent value="revenue"><RevenuePanel /></TabsContent>
       </Tabs>
     </DashboardShell>
@@ -370,6 +374,179 @@ function ComboEditDialog({ open, combo, onClose, onSave }: { open: boolean; comb
   );
 }
 
+/* ---------------- Regional ads ---------------- */
+
+function RegionalAdsPanel() {
+  const { regionalAds, addRegionalAd, updateRegionalAd, deleteRegionalAd } = useAdminStore();
+  const [editing, setEditing] = useState<RegionalAd | null>(null);
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="bg-card border rounded-2xl p-5">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+        <div>
+          <h2 className="font-display font-bold">Location-based ads ({regionalAds.length})</h2>
+          <p className="text-sm text-muted-foreground mt-1">
+            Popup offers shown to visitors by country or city (Geoapify). Use &quot;India&quot;, &quot;IN&quot;, or a city name.
+          </p>
+        </div>
+        <Button
+          size="sm"
+          onClick={() => {
+            addRegionalAd({});
+            toast.success("Ad created — edit targeting below");
+          }}
+        >
+          <Plus className="h-4 w-4" /> New ad
+        </Button>
+      </div>
+
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Title</TableHead>
+            <TableHead>Target</TableHead>
+            <TableHead>Active</TableHead>
+            <TableHead className="text-right">Actions</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {regionalAds.map((ad) => (
+            <TableRow key={ad.id}>
+              <TableCell>
+                <div className="font-medium">{ad.title}</div>
+                <div className="text-xs text-muted-foreground line-clamp-1">{ad.description}</div>
+              </TableCell>
+              <TableCell>
+                <Badge variant="secondary" className="capitalize">
+                  {ad.targetType === "global" ? "Worldwide" : ad.targetValue}
+                </Badge>
+              </TableCell>
+              <TableCell>
+                <Switch
+                  checked={ad.active}
+                  onCheckedChange={(v) => updateRegionalAd(ad.id, { active: v })}
+                />
+              </TableCell>
+              <TableCell className="text-right">
+                <Button size="icon" variant="ghost" onClick={() => { setEditing(ad); setOpen(true); }} aria-label="Edit">
+                  <Pencil className="h-4 w-4" />
+                </Button>
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  onClick={() => { deleteRegionalAd(ad.id); toast.success("Ad removed"); }}
+                  aria-label="Delete"
+                >
+                  <Trash2 className="h-4 w-4 text-destructive" />
+                </Button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+
+      <AdEditDialog
+        open={open && !!editing}
+        ad={editing}
+        onClose={() => { setOpen(false); setEditing(null); }}
+        onSave={(patch) => {
+          if (editing) {
+            updateRegionalAd(editing.id, patch);
+            toast.success("Ad updated");
+          }
+          setOpen(false);
+          setEditing(null);
+        }}
+      />
+    </div>
+  );
+}
+
+function AdEditDialog({
+  open,
+  ad,
+  onClose,
+  onSave,
+}: {
+  open: boolean;
+  ad: RegionalAd | null;
+  onClose: () => void;
+  onSave: (p: Partial<RegionalAd>) => void;
+}) {
+  const [form, setForm] = useState<Partial<RegionalAd>>({});
+  const update = <K extends keyof RegionalAd>(k: K, v: RegionalAd[K]) => setForm((f) => ({ ...f, [k]: v }));
+
+  if (ad && form.id !== ad.id) setForm({ ...ad });
+
+  if (!ad) return null;
+
+  return (
+    <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
+      <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle>Edit regional ad</DialogTitle>
+        </DialogHeader>
+        <div className="grid gap-4">
+          <div>
+            <Label>Title</Label>
+            <Input value={form.title || ""} onChange={(e) => update("title", e.target.value)} className="mt-1" />
+          </div>
+          <div>
+            <Label>Description</Label>
+            <Textarea rows={3} value={form.description || ""} onChange={(e) => update("description", e.target.value)} className="mt-1" />
+          </div>
+          <div className="grid sm:grid-cols-2 gap-4">
+            <div>
+              <Label>CTA button text</Label>
+              <Input value={form.ctaText || ""} onChange={(e) => update("ctaText", e.target.value)} className="mt-1" />
+            </div>
+            <div>
+              <Label>CTA link (path)</Label>
+              <Input value={form.ctaLink || ""} onChange={(e) => update("ctaLink", e.target.value)} placeholder="/courses" className="mt-1" />
+            </div>
+          </div>
+          <div>
+            <Label>Image URL (optional)</Label>
+            <Input value={form.imageUrl || ""} onChange={(e) => update("imageUrl", e.target.value)} placeholder="https://..." className="mt-1" />
+          </div>
+          <div className="grid sm:grid-cols-2 gap-4">
+            <div>
+              <Label>Show to</Label>
+              <Select value={form.targetType} onValueChange={(v) => update("targetType", v as RegionalAdTarget)}>
+                <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="global">Everyone (worldwide)</SelectItem>
+                  <SelectItem value="country">Country</SelectItem>
+                  <SelectItem value="city">City</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label>{form.targetType === "global" ? "Note" : "Country or city name"}</Label>
+              <Input
+                value={form.targetValue || ""}
+                onChange={(e) => update("targetValue", e.target.value)}
+                disabled={form.targetType === "global"}
+                placeholder={form.targetType === "city" ? "Mumbai" : "India or IN"}
+                className="mt-1"
+              />
+            </div>
+          </div>
+          <div className="flex items-center justify-between rounded-lg border p-3">
+            <Label htmlFor="ad-active">Active (visible in popup)</Label>
+            <Switch id="ad-active" checked={form.active ?? true} onCheckedChange={(v) => update("active", v)} />
+          </div>
+        </div>
+        <DialogFooter>
+          <Button variant="ghost" onClick={onClose}>Cancel</Button>
+          <Button onClick={() => onSave(form)}>Save</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 /* ---------------- Revenue ---------------- */
 
 function RevenuePanel() {
@@ -400,3 +577,4 @@ function RevenuePanel() {
     </div>
   );
 }
+
