@@ -1,0 +1,1 @@
+import{a9 as r}from"./index-CoyAMSvj.js";const s=({error:e})=>r.jsxs("div",{className:"container mx-auto p-12 text-center",children:[r.jsx("h1",{children:"Error"}),r.jsx("p",{children:e.message})]});export{s as errorComponent};

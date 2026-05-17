@@ -1,6 +1,6 @@
 // Curated Unsplash images. Stable photo IDs, served via Unsplash CDN.
-const u = (id: string, w = 800) =>
-  `https://images.unsplash.com/photo-${id}?w=${w}&q=80&auto=format&fit=crop`;
+const u = (id: string, w = 800, crop?: "faces") =>
+  `https://images.unsplash.com/photo-${id}?w=${w}&q=80&auto=format&fit=crop${crop ? `&crop=${crop}` : ""}`;
 
 // Course thumbnails keyed by course id (c1..c12)
 export const COURSE_IMAGES: Record<string, string> = {
@@ -20,21 +20,21 @@ export const COURSE_IMAGES: Record<string, string> = {
 
 // Tutor portraits keyed by tutor id (t1..t12)
 export const TUTOR_IMAGES: Record<string, string> = {
-  t1: u("1494790108377-be9c29b29330", 400),
-  t2: u("1438761681033-6461ffad8d80", 400),
-  t3: u("1500648767791-00dcc994a43e", 400),
-  t4: u("1487412720507-e7ab37603c6f", 400),
-  t5: u("1507003211169-0a1dd7228f2d", 400),
-  t6: u("1573497019940-1c28c88b4f3e", 400),
-  t7: u("1472099645785-5658abf4ff4e", 400),
-  t8: u("1534528741775-53994a69daeb", 400),
-  t9: u("1463453091185-61582044d556", 400),
-  t10: u("1517841905240-472988babdf9", 400),
-  t11: u("1519085360753-af0119f7cbe7", 400),
-  t12: u("1531123897727-8f129e1688ce", 400),
+  t1: u("1494790108377-be9c29b29330", 400, "faces"),
+  t2: u("1438761681033-6461ffad8d80", 400, "faces"),
+  t3: u("1500648767791-00dcc994a43e", 400, "faces"),
+  t4: u("1487412720507-e7ab37603c6f", 400, "faces"),
+  t5: u("1507003211169-0a1dd7228f2d", 400, "faces"),
+  t6: u("1573497019940-1c28c88b4f3e", 400, "faces"),
+  t7: u("1472099645785-5658abf4ff4e", 400, "faces"),
+  t8: u("1534528741775-53994a69daeb", 400, "faces"),
+  t9: u("1463453091185-61582044d556", 400, "faces"),
+  t10: u("1517841905240-472988babdf9", 400, "faces"),
+  t11: u("1519085360753-af0119f7cbe7", 400, "faces"),
+  t12: u("1531123897727-8f129e1688ce", 400, "faces"),
 };
 
 export const courseImage = (id: string) =>
   COURSE_IMAGES[id] || u("1517694712202-14dd9538aa97");
 export const tutorImage = (id: string) =>
-  TUTOR_IMAGES[id] || u("1494790108377-be9c29b29330", 400);
+  TUTOR_IMAGES[id] || u("1494790108377-be9c29b29330", 400, "faces");

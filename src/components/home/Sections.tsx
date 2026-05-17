@@ -63,7 +63,16 @@ export function Hero() {
         </div>
         <div className="relative">
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border bg-muted shadow-soft sm:aspect-video">
-            <img src={hero} alt="Students learning online" className="h-full w-full object-cover" />
+            <video
+              src="/hero-video.mp4"
+              poster={hero}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="h-full w-full object-cover"
+              aria-label="Students learning with TeachersPoints"
+            />
           </div>
           <div className="absolute -bottom-3 left-4 hidden rounded-xl border bg-card p-3 shadow-soft md:block lg:left-6">
             <p className="text-sm font-semibold">{t("hero.card.students")}</p>
@@ -215,7 +224,7 @@ export function CareerBanner() {
           <p className="mt-4 opacity-90 text-lg">Programs designed by hiring managers at Google, Microsoft, Adobe, and more — with placement support.</p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button asChild size="lg" className="bg-white text-purple hover:bg-white/90"><Link to="/courses">Explore programs</Link></Button>
-            <Button asChild size="lg" variant="outline" className="border-white/40 text-white hover:bg-white/10"><Link to="/pricing">View pricing</Link></Button>
+            <Button asChild size="lg" variant="outline" className="border-white/40 bg-transparent text-white shadow-none hover:bg-white/10 hover:text-white"><Link to="/pricing">View pricing</Link></Button>
           </div>
           <div className="mt-8 flex flex-wrap items-center gap-6 opacity-80 text-sm">
             <span>Trusted by hiring teams at:</span>

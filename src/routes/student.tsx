@@ -12,7 +12,7 @@ const ITEMS = [
   { to: "/student", label: "Overview", icon: LayoutDashboard },
   { to: "/courses", label: "My Courses", icon: BookOpen },
   { to: "/tutors", label: "Saved Tutors", icon: Heart },
-  { to: "/lms", label: "Certificates", icon: Award },
+  { to: "/student", label: "Certificates", icon: Award },
   { to: "/messages", label: "Messages", icon: MessageCircle },
   { to: "/support", label: "Support", icon: LifeBuoy },
 ];
