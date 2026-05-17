@@ -3,15 +3,16 @@ import { I18nextProvider } from "react-i18next";
 import i18n from "@/i18n";
 import { useAutoLanguageFromLocation } from "@/hooks/useAutoLanguageFromLocation";
 import { useLocationContext } from "@/hooks/use-user-location";
+import { isRtlLanguage } from "@/lib/country-languages";
 
 function syncDocumentLanguage(lng: string) {
   document.documentElement.lang = lng;
-  document.documentElement.dir = "ltr";
+  document.documentElement.dir = isRtlLanguage(lng) ? "rtl" : "ltr";
 }
 
 function AutoLanguageFromGeo() {
-  const { countryCode, isLoading } = useLocationContext();
-  useAutoLanguageFromLocation(isLoading ? undefined : countryCode);
+  const { location, isLoading } = useLocationContext();
+  useAutoLanguageFromLocation(isLoading ? undefined : location);
   return null;
 }
 

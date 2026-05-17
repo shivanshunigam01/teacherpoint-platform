@@ -8,8 +8,10 @@ import frCommon from "../../public/locales/fr/common.json";
 import deCommon from "../../public/locales/de/common.json";
 import esCommon from "../../public/locales/es/common.json";
 import itCommon from "../../public/locales/it/common.json";
+import hiCommon from "../../public/locales/hi/common.json";
+import arCommon from "../../public/locales/ar/common.json";
 
-export const SUPPORTED_LANGUAGES = ["en", "zh", "fr", "de", "es", "it"] as const;
+export const SUPPORTED_LANGUAGES = ["en", "zh", "fr", "de", "es", "it", "hi", "ar"] as const;
 export type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number];
 
 const resources = {
@@ -19,6 +21,8 @@ const resources = {
   de: { common: deCommon },
   es: { common: esCommon },
   it: { common: itCommon },
+  hi: { common: hiCommon },
+  ar: { common: arCommon },
 };
 
 void i18n

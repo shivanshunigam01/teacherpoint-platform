@@ -55,7 +55,10 @@ export async function reverseGeocode(lat: number, lon: number): Promise<Location
 
 export async function geolocateByIp(): Promise<LocationDetectResult> {
   const key = apiKey();
-  if (!key) return { location: null, geoapify: null };
+  if (!key) {
+    console.warn("[Geoapify] VITE_GEOAPIFY_API_KEY is missing — location, language, and regional ads are disabled.");
+    return { location: null, geoapify: null };
+  }
   const res = await fetch(`https://api.geoapify.com/v1/ipinfo?apiKey=${key}`);
   if (!res.ok) return { location: null, geoapify: null };
   const data = await res.json();

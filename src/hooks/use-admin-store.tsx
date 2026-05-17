@@ -80,6 +80,28 @@ const DEFAULT_REGIONAL_ADS: RegionalAd[] = [
     active: true,
     createdAt: new Date().toISOString(),
   },
+  {
+    id: "ad-uae-dubai",
+    title: "Dubai & UAE: Premium tutor access",
+    description: "Book verified tutors in English or Arabic — exclusive offers for learners in the UAE.",
+    ctaText: "Explore UAE tutors",
+    ctaLink: "/tutors",
+    targetType: "country",
+    targetValue: "United Arab Emirates",
+    active: true,
+    createdAt: new Date().toISOString(),
+  },
+  {
+    id: "ad-dubai-city",
+    title: "Dubai learners welcome",
+    description: "Live and online sessions with top-rated teachers — switch the site to Arabic anytime from the globe icon.",
+    ctaText: "Browse courses",
+    ctaLink: "/courses",
+    targetType: "city",
+    targetValue: "Dubai",
+    active: true,
+    createdAt: new Date().toISOString(),
+  },
 ];
 
 const initial = (): Store => ({

@@ -102,5 +102,8 @@
   "lang.fr": "法语",
   "lang.de": "德语",
   "lang.es": "西班牙语",
-  "lang.it": "意大利语"
+  "lang.it": "意大利语",
+  "lang.hi": "印地语",
+  "lang.ar": "阿拉伯语",
+  "lang.forRegion": "{{region}} 可用语言"
 }

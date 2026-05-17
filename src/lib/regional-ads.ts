@@ -11,11 +11,15 @@ export function adMatchesLocation(ad: RegionalAd, location: UserLocation | null)
   const target = norm(ad.targetValue);
 
   if (ad.targetType === "country") {
+    const country = norm(location.country);
+    const code = norm(location.countryCode);
     return (
-      norm(location.country) === target ||
-      norm(location.countryCode) === target ||
-      norm(location.country).includes(target) ||
-      target === norm(location.countryCode)
+      country === target ||
+      code === target ||
+      country.includes(target) ||
+      target.includes(country) ||
+      target === code ||
+      (target.length === 2 && code === target)
     );
   }
 

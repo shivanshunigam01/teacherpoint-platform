@@ -10,7 +10,7 @@ import {
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
-import { AppProvider } from "@/hooks/use-app";
+import { AppProvider, useApp } from "@/hooks/use-app";
 import { AdminStoreProvider } from "@/hooks/use-admin-store";
 import { LocationProvider } from "@/hooks/use-user-location";
 import { I18nProvider } from "@/components/I18nProvider";
@@ -102,13 +102,6 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-  const path = useRouterState({ select: (s) => s.location.pathname });
-  const isDashboard =
-    path.startsWith("/admin") ||
-    path.startsWith("/student") ||
-    path.startsWith("/teacher") ||
-    path.startsWith("/parent") ||
-    path.startsWith("/lms");
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -116,21 +109,37 @@ function RootComponent() {
         <I18nProvider>
           <AppProvider>
             <AdminStoreProvider>
-              <div className="min-h-screen flex flex-col bg-background text-foreground">
-                <Header />
-                <main className="flex-1 pb-[calc(5rem+env(safe-area-inset-bottom))] lg:pb-0">
-                  <Outlet />
-                </main>
-                {!isDashboard && <Footer />}
-                {!isDashboard && <MobileNav />}
-                {!isDashboard && <ChatWidget />}
-                {!isDashboard && <RegionalAdPopup />}
-                <Toaster />
-              </div>
+              <RootLayout />
             </AdminStoreProvider>
           </AppProvider>
         </I18nProvider>
       </LocationProvider>
     </QueryClientProvider>
+  );
+}
+
+function RootLayout() {
+  const path = useRouterState({ select: (s) => s.location.pathname });
+  const { role } = useApp();
+  const isDashboard =
+    path.startsWith("/admin") ||
+    path.startsWith("/student") ||
+    path.startsWith("/teacher") ||
+    path.startsWith("/parent") ||
+    path.startsWith("/lms");
+  const showSiteHeader = !role || !isDashboard;
+
+  return (
+    <div className="min-h-screen flex flex-col bg-background text-foreground">
+      {showSiteHeader && <Header />}
+      <main className={`flex-1 ${isDashboard ? "" : "pb-[calc(5rem+env(safe-area-inset-bottom))] lg:pb-0"}`}>
+        <Outlet />
+      </main>
+      {!isDashboard && <Footer />}
+      {!isDashboard && <MobileNav />}
+      {!isDashboard && <ChatWidget />}
+      {!isDashboard && <RegionalAdPopup />}
+      <Toaster />
+    </div>
   );
 }

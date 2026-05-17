@@ -102,5 +102,8 @@
   "lang.fr": "Francese",
   "lang.de": "Tedesco",
   "lang.es": "Spagnolo",
-  "lang.it": "Italiano"
+  "lang.it": "Italiano",
+  "lang.hi": "Hindi",
+  "lang.ar": "Arabo",
+  "lang.forRegion": "Lingue per {{region}}"
 }
