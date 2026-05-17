@@ -23,16 +23,20 @@ export function LocationProvider({ children }: { children: ReactNode }) {
     let cancelled = false;
     setStatus("loading");
 
-    detectUserLocation()
-      .then((result) => {
-        if (cancelled) return;
-        setLocation(result.location);
-        setGeoapify(result.geoapify);
-        setStatus(result.location ? "ready" : "error");
-      })
-      .catch(() => {
-        if (!cancelled) setStatus("error");
-      });
+    const run = () =>
+      detectUserLocation()
+        .then((result) => {
+          if (cancelled) return;
+          setLocation(result.location);
+          setGeoapify(result.geoapify);
+          setStatus(result.location ? "ready" : "error");
+        })
+        .catch((err) => {
+          console.warn("[location] detection failed", err);
+          if (!cancelled) setStatus("error");
+        });
+
+    run();
 
     return () => {
       cancelled = true;

@@ -32,6 +32,8 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TutorsIdRouteImport } from './routes/tutors.$id'
 import { Route as CoursesIdRouteImport } from './routes/courses.$id'
+import { Route as ApiGeolocationReverseRouteImport } from './routes/api/geolocation/reverse'
+import { Route as ApiGeolocationIpRouteImport } from './routes/api/geolocation/ip'
 
 const TutorsRoute = TutorsRouteImport.update({
   id: '/tutors',
@@ -148,6 +150,16 @@ const CoursesIdRoute = CoursesIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => CoursesRoute,
 } as any)
+const ApiGeolocationReverseRoute = ApiGeolocationReverseRouteImport.update({
+  id: '/api/geolocation/reverse',
+  path: '/api/geolocation/reverse',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiGeolocationIpRoute = ApiGeolocationIpRouteImport.update({
+  id: '/api/geolocation/ip',
+  path: '/api/geolocation/ip',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -173,6 +185,8 @@ export interface FileRoutesByFullPath {
   '/tutors': typeof TutorsRouteWithChildren
   '/courses/$id': typeof CoursesIdRoute
   '/tutors/$id': typeof TutorsIdRoute
+  '/api/geolocation/ip': typeof ApiGeolocationIpRoute
+  '/api/geolocation/reverse': typeof ApiGeolocationReverseRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -198,6 +212,8 @@ export interface FileRoutesByTo {
   '/tutors': typeof TutorsRouteWithChildren
   '/courses/$id': typeof CoursesIdRoute
   '/tutors/$id': typeof TutorsIdRoute
+  '/api/geolocation/ip': typeof ApiGeolocationIpRoute
+  '/api/geolocation/reverse': typeof ApiGeolocationReverseRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -224,6 +240,8 @@ export interface FileRoutesById {
   '/tutors': typeof TutorsRouteWithChildren
   '/courses/$id': typeof CoursesIdRoute
   '/tutors/$id': typeof TutorsIdRoute
+  '/api/geolocation/ip': typeof ApiGeolocationIpRoute
+  '/api/geolocation/reverse': typeof ApiGeolocationReverseRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -251,6 +269,8 @@ export interface FileRouteTypes {
     | '/tutors'
     | '/courses/$id'
     | '/tutors/$id'
+    | '/api/geolocation/ip'
+    | '/api/geolocation/reverse'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -276,6 +296,8 @@ export interface FileRouteTypes {
     | '/tutors'
     | '/courses/$id'
     | '/tutors/$id'
+    | '/api/geolocation/ip'
+    | '/api/geolocation/reverse'
   id:
     | '__root__'
     | '/'
@@ -301,6 +323,8 @@ export interface FileRouteTypes {
     | '/tutors'
     | '/courses/$id'
     | '/tutors/$id'
+    | '/api/geolocation/ip'
+    | '/api/geolocation/reverse'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -325,6 +349,8 @@ export interface RootRouteChildren {
   SupportRoute: typeof SupportRoute
   TeacherRoute: typeof TeacherRoute
   TutorsRoute: typeof TutorsRouteWithChildren
+  ApiGeolocationIpRoute: typeof ApiGeolocationIpRoute
+  ApiGeolocationReverseRoute: typeof ApiGeolocationReverseRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -490,6 +516,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CoursesIdRouteImport
       parentRoute: typeof CoursesRoute
     }
+    '/api/geolocation/reverse': {
+      id: '/api/geolocation/reverse'
+      path: '/api/geolocation/reverse'
+      fullPath: '/api/geolocation/reverse'
+      preLoaderRoute: typeof ApiGeolocationReverseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/geolocation/ip': {
+      id: '/api/geolocation/ip'
+      path: '/api/geolocation/ip'
+      fullPath: '/api/geolocation/ip'
+      preLoaderRoute: typeof ApiGeolocationIpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -537,6 +577,8 @@ const rootRouteChildren: RootRouteChildren = {
   SupportRoute: SupportRoute,
   TeacherRoute: TeacherRoute,
   TutorsRoute: TutorsRouteWithChildren,
+  ApiGeolocationIpRoute: ApiGeolocationIpRoute,
+  ApiGeolocationReverseRoute: ApiGeolocationReverseRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
