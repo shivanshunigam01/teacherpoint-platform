@@ -19,6 +19,8 @@ import { toast } from "sonner";
 import type { Course, Tutor } from "@/data/mock";
 import type { Combo, RegionalAd, RegionalAdTarget } from "@/hooks/use-admin-store";
 import { Switch } from "@/components/ui/switch";
+import { AdminRequirementsPanel } from "@/components/requirements/AdminRequirementsPanel";
+import { useRequirementStore } from "@/hooks/use-requirement-store";
 
 export const Route = createFileRoute("/admin")({
   component: Admin,
@@ -37,13 +39,26 @@ const ITEMS = [
 
 function Admin() {
   const store = useAdminStore();
+  const reqStore = useRequirementStore();
   return (
     <DashboardShell items={ITEMS} title="Admin">
       <div className="flex items-center justify-between mb-6 gap-4 flex-wrap">
         <h1 className="font-display font-extrabold text-2xl">Manage your platform</h1>
-        <Button variant="outline" size="sm" onClick={() => { store.reset(); toast.success("Data reset to defaults"); }}>
-          Reset to defaults
-        </Button>
+        <div className="flex flex-wrap gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              reqStore.resetRequirements();
+              toast.success("Requirement flow data reset");
+            }}
+          >
+            Reset requirements
+          </Button>
+          <Button variant="outline" size="sm" onClick={() => { store.reset(); toast.success("Data reset to defaults"); }}>
+            Reset to defaults
+          </Button>
+        </div>
       </div>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-6">
@@ -69,6 +84,8 @@ function Admin() {
         <TabsContent value="ads"><RegionalAdsPanel /></TabsContent>
         <TabsContent value="revenue"><RevenuePanel /></TabsContent>
       </Tabs>
+
+      <AdminRequirementsPanel />
     </DashboardShell>
   );
 }

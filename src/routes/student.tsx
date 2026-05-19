@@ -5,6 +5,7 @@ import { COURSES, TUTORS, NOTIFICATIONS } from "@/data/mock";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { StudentRequirementsPanel } from "@/components/requirements/StudentRequirementsPanel";
 
 export const Route = createFileRoute("/student")({ component: Student, head: () => ({ meta: [{ title: "Student Dashboard · TeachersPoints" }, { name: "robots", content: "noindex" }] }) });
 
@@ -80,6 +81,8 @@ function Student() {
           </div>
         </div>
       </div>
+
+      <StudentRequirementsPanel />
     </DashboardShell>
   );
 }

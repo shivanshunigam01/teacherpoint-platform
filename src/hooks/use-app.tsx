@@ -1,11 +1,12 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import { DEMO_USERS, type Role } from "@/data/mock";
+import { DEMO_USER_IDS } from "@/data/requirements-seed";
 
 type Theme = "light" | "dark";
 
 interface AppState {
   role: Role | null;
-  user: { name: string; email: string } | null;
+  user: { id: string; name: string; email: string } | null;
   theme: Theme;
   login: (role: Role) => void;
   logout: () => void;
@@ -44,8 +45,15 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const user = role
+    ? {
+        ...DEMO_USERS[role],
+        id: role === "student" ? DEMO_USER_IDS.student : role === "teacher" ? DEMO_USER_IDS.teacher : role === "admin" ? DEMO_USER_IDS.admin : `demo-${role}`,
+      }
+    : null;
+
   return (
-    <Ctx.Provider value={{ role, user: role ? DEMO_USERS[role] : null, theme, login, logout, toggleTheme }}>
+    <Ctx.Provider value={{ role, user, theme, login, logout, toggleTheme }}>
       {children}
     </Ctx.Provider>
   );

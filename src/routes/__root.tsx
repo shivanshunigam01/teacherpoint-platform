@@ -12,6 +12,7 @@ import {
 import appCss from "../styles.css?url";
 import { AppProvider, useApp } from "@/hooks/use-app";
 import { AdminStoreProvider } from "@/hooks/use-admin-store";
+import { RequirementStoreProvider } from "@/hooks/use-requirement-store";
 import { LocationProvider } from "@/hooks/use-user-location";
 import { I18nProvider } from "@/components/I18nProvider";
 import { Header } from "@/components/layout/Header";
@@ -109,7 +110,9 @@ function RootComponent() {
         <I18nProvider>
           <AppProvider>
             <AdminStoreProvider>
-              <RootLayout />
+              <RequirementStoreProvider>
+                <RootLayout />
+              </RequirementStoreProvider>
             </AdminStoreProvider>
           </AppProvider>
         </I18nProvider>

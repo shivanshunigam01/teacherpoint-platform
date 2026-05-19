@@ -5,13 +5,14 @@ import { COURSES, REVENUE_DATA } from "@/data/mock";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip } from "recharts";
+import { TeacherRequirementsPanel } from "@/components/requirements/TeacherRequirementsPanel";
 
 export const Route = createFileRoute("/teacher")({ component: Teacher, head: () => ({ meta: [{ title: "Teacher Dashboard · TeachersPoints" }, { name: "robots", content: "noindex" }] }) });
 
 const ITEMS = [
   { to: "/teacher", label: "Overview", icon: LayoutDashboard },
   { to: "/lms", label: "My Courses", icon: BookOpen },
-  { to: "/messages", label: "Student Requests", icon: Users },
+  { to: "/teacher", label: "Student Requirements", icon: Users },
   { to: "/payments", label: "Earnings", icon: DollarSign },
   { to: "/reviews", label: "Reviews", icon: Star },
   { to: "/messages", label: "Messages", icon: MessageCircle },
@@ -65,6 +66,8 @@ function Teacher() {
           </div>
         </div>
       </div>
+
+      <TeacherRequirementsPanel />
     </DashboardShell>
   );
 }
